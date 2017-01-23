@@ -2,6 +2,7 @@
  *	ango -- app.js
  *  这是一个前后端分离的项目，不需要后端的渲染引擎
  *  前端框架为angular, jQuery
+ *  数据库使用mongodb
  *  前端部分放置于static文件夹
  *  
  */
