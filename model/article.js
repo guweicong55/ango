@@ -5,10 +5,10 @@ var article = new Schema({
 	title: 			{ type: String },		//标题
 	content: 		{ type: String },		//内容
 	article_type: 	{ type: String },		//类型
-	master_name: 	{ type: String },		//作者
+	author: 		{ type: String },		//作者
 	create_at: 		{ type: Date, default: Date.now },		//创建时间
-	push: 			{ type: Number },    	//赞同
-	step: 			{ type: Number },		//踩
+	push: 			{ type: Number, default: 0 },    	//赞同
+	step: 			{ type: Number, default: 0 },		//踩
 }, {
 	versionKey: false
 });

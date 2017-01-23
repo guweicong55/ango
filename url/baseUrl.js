@@ -9,6 +9,7 @@ var router = express.Router();
  */
 
 var sign = require('../controller/sign');
+var publish = require('../controller/publish');
 
 // 注册登录退出
 router.post('/signup', sign.signUp);
@@ -16,7 +17,7 @@ router.post('/signin', sign.signIn);
 router.get('/quite', sign.quite);
 
 //发布文章
-router.post('/publish', sign.publish);
+router.post('/publish', publish.publish);
 
 // 导出router,由入口文件app.js执行
 module.exports = router;

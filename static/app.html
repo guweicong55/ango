@@ -15,6 +15,17 @@
 		<button ng-click="update()">update</button>
 		<button ng-click="quite()">quite</button>
 	</div>
+	<div ng-controller="crtl03" style="margin-top: 50px;">
+		<input type="text" ng-model="data.aTitle" placeholder="输入标题"/>
+		<textarea ng-model="data.aContent"></textarea>
+		<select ng-model="data.aType">
+			<option value="">选择类型</option>
+			<option value="1">1111</option>
+			<option value="2">2222</option>
+			<option value="3">3333</option>
+		</select>
+		<button ng-click="update()">update</button>
+	</div>
 </body>
 <script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
@@ -64,6 +75,25 @@
 				if (res === '1') {
 					console.log('退出成功');
 				};
+			})
+		}
+	}]);
+
+	app.controller('crtl03', ['$scope', '$http', function ($scope, $http) {
+		$scope.data = {
+			aTitle: 'madonna',
+			aContent: '',
+			aType: ''
+		}
+
+		$scope.update = function () {
+			$http({
+				method: 'post',
+				url: '/publish',
+				data: $scope.data,
+				dataType: 'json'
+			}).success(function (res) {
+				console.log(res);
 			})
 		}
 	}]);
