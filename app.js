@@ -28,6 +28,7 @@ app.use(express.static('./static'));
 app.use(cookieParser(''));
 app.use(session({
 	secret: 'sessiontest',
+	cookie: { maxAge: 1000*80 },
 	resave: false,
 	saveUninitialized:true
 }));
