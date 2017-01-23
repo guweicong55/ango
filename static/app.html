@@ -13,6 +13,7 @@
 		<input type="text" ng-model="data.account" placeholder="请输入用户名或邮箱"/>
 		<input type="text" ng-model="data.password" placeholder=""/>
 		<button ng-click="update()">update</button>
+		<button ng-click="quite()">quite</button>
 	</div>
 </body>
 <script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
@@ -53,6 +54,16 @@
 				dataType: 'json'
 			}).success(function (res) {
 				console.log(res);
+			})
+		}
+		$scope.quite = function () {
+			$http({
+				method: 'get',
+				url: '/quite',
+			}).success(function (res) {
+				if (res === '1') {
+					console.log('退出成功');
+				};
 			})
 		}
 	}]);

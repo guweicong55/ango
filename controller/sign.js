@@ -2,15 +2,9 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
-var bcrypt = require('bcryptjs');
 
 var user = require('../model/user').user;
 var tool = require('../common/tool');
-
-exports.main = function (req, res) {
-
-	res.send(moment().format('YYYY-MM-DD HH:mm:ss'));
-}
 
 // 注册模块
 exports.signUp = function (req, res) {
@@ -75,7 +69,7 @@ exports.signUp = function (req, res) {
 						reg_ip: ip
 					}).save(function  (err) {
 						if (!err) {
-							res.send('注册成功。');
+							res.send('1');
 						} else {
 							console.log(err);			
 						}
@@ -92,6 +86,13 @@ exports.signUp = function (req, res) {
 
 // 登录模块账号邮箱均可以登录
 exports.signIn = function (req, res) {
+	
+	// 查看是否已登录
+	if (req.session.user) {
+		res.send('您已登录');
+		return;
+	}
+
 	var data = req.body;
 	var account = validator.trim(data.account).toLowerCase();
 	var password = validator.trim(data.password);
@@ -107,11 +108,17 @@ exports.signIn = function (req, res) {
 			res.send('用户不存在');
 		} else if (doc.length > 0) {
 			if (tool.mkCompare(password, doc[0].password)) {
-				//req.session.user = account;
-				res.send('登录成功');
+				req.session.user = account;
+				res.send('1');
 			} else {
 				res.send('密码错误');
 			};
 		};
 	});
+}
+
+// 退出账号
+exports.quite = function (req, res) {
+	req.session.destroy();
+	res.send('1');
 }
