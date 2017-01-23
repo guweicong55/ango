@@ -12,7 +12,9 @@ exports.main = function (req, res) {
 	res.send(moment().format('YYYY-MM-DD HH:mm:ss'));
 }
 
+// 注册模块
 exports.signUp = function (req, res) {
+	// 获取表单信息
 	var ip = req.headers['x-forwarded-for'] ||
 		req.connection.remoteAddress ||
 		req.socket.remoteAddress ||
@@ -82,4 +84,44 @@ exports.signUp = function (req, res) {
 			
 		}
 	});
+}
+
+exports.signIn = function (req, res) {
+	var data = req.body;
+	var account = validator.trim(data.account).toLowerCase();
+	var password = validator.trim(data.password);
+
+	if (validator.isEmail(account)) {
+		user.find({
+			email: account,
+		}, function (err, doc) {
+			if (err) {
+				console.log('登录失败' + err);
+			} else if (doc.length === 0) {
+				res.send('用户不存在');
+			} else if (doc.length > 0) {
+				if (tool.mkCompare(password, doc[0].password)) {
+					res.send('登录成功');
+				} else {
+					res.send('密码错误');
+				};
+			};
+		});
+	} else {
+		user.find({
+			user_name: account,
+		}, function (err, doc) {
+			if (err) {
+				console.log('登录失败' + err);
+			} else if (doc.length === 0) {
+				res.send('用户不存在');
+			} else if (doc.length > 0) {
+				if (tool.mkCompare(password, doc[0].password)) {
+					res.send('登录成功');
+				} else {
+					res.send('密码错误');
+				};
+			};
+		});
+	};
 }

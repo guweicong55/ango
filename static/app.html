@@ -8,8 +8,12 @@
 		<input type="text" ng-model="data.email" placeholder="邮箱"/>
 		<input type="text" ng-model="data.password" placeholder=""/>
 		<button ng-click="update()">update</button>
+	</div> 
+	<div ng-controller="crtl02" style="margin-top: 50px;">
+		<input type="text" ng-model="data.account" placeholder="请输入用户名或邮箱"/>
+		<input type="text" ng-model="data.password" placeholder=""/>
+		<button ng-click="update()">update</button>
 	</div>
-
 </body>
 <script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
@@ -27,6 +31,24 @@
 			$http({
 				method: 'post',
 				url: '/signup',
+				data: $scope.data,
+				dataType: 'json'
+			}).success(function (res) {
+				console.log(res);
+			})
+		}
+	}]);
+
+	app.controller('crtl02', ['$scope', '$http', function ($scope, $http) {
+		$scope.data = {
+			account: 'madonna',
+			password: ''
+		}
+
+		$scope.update = function () {
+			$http({
+				method: 'post',
+				url: '/signin',
 				data: $scope.data,
 				dataType: 'json'
 			}).success(function (res) {

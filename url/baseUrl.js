@@ -11,6 +11,7 @@ var router = express.Router();
 var sign = require('../controller/sign');
 
 router.post('/signup', sign.signUp);
+router.post('/signin', sign.signIn);
 router.get('/', sign.main);
 
 //导出router,由入口文件app.js执行

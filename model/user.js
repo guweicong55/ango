@@ -4,8 +4,7 @@ var Schema = mongoose.Schema;
 var user = new Schema({
 	user_name : 		{ type: String }, 					//账号
 	nick_name : 		{ type: String }, 					//昵称
-	sex :				{ type: String }, 					//昵称
-	user_name : 		{ type: String }, 					//账号
+	sex :				{ type: String }, 					//性别
 	email : 			{ type: String }, 					//邮箱
 	password : 			{ type: String },					//密码
 	phone: 				{ type: String },					//手机号
