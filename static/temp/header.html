@@ -1,0 +1,24 @@
+<div class="header-nav">
+	<div class="container">
+		<a href="#/" class="logo">ANGO</a>
+		<ul class="navbar-right" ng-hide='isLogin'>
+			<li>
+				<a href="#/signup">Sign Up</a>
+			</li>
+			<li>
+				<a href="#/signin">Sign In</a>
+			</li>
+		</ul>
+		<ul class="navbar-right" ng-show='isLogin'>
+			<li>
+				<a href="javascript:;">{{ username }}</a>
+			</li>
+			<li>
+				<a href="#/publish">Publish</a>
+			</li>
+			<li>
+				<a href="javascript:;" ng-click="quite()">Quite</a>
+			</li>
+		</ul>
+	</div>
+</div>

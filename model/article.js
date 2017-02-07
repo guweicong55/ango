@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var moment = require('moment');
+
 var article = new Schema({
 	title: 			{ type: String },		//标题
 	content: 		{ type: String },		//内容

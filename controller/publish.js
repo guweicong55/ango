@@ -6,7 +6,7 @@ var article = require('../model/article').article;
 
 // 发布文章
 exports.publish = function (req, res) {
-	var user = req.session.user;
+	var user = req.session.data;
 	if (!user) {
 		res.send('未登录');
 		return;
@@ -21,7 +21,7 @@ exports.publish = function (req, res) {
 	new article({
 		title: data.aTitle,
 		content: data.aContent,
-		author: user,
+		author: user.user_name,
 		article_type: data.aType
 	}).save(function (err) {
 		if (err) {
@@ -30,5 +30,16 @@ exports.publish = function (req, res) {
 		} else {
 			res.send('文章发布成功');
 		};
+	});
+}
+
+//获取文章列表
+exports.articleList = function (req, res) {
+	article.find({}, function (err, doc) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		res.send(doc);
 	});
 }

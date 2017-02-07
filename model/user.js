@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var moment = require('moment');
+
 var user = new Schema({
 	user_name : 		{ type: String }, 					//账号
 	nick_name : 		{ type: String }, 					//昵称
@@ -11,7 +13,7 @@ var user = new Schema({
 	last_login_ip: 		{ type: String },					//最后登录IP
 	last_login_time:	{ type: Date },						//最后登录时间
 	reg_ip: 			{ type: String },					//注册IP
-	creat_at:　			{ type: Date, default: Date.now } 	//创建时间
+	creat_at:　			{ type: Number, default: Date().now } 	//创建时间
 }, {
 	versionKey: false
 });

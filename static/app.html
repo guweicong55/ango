@@ -1,101 +1,18 @@
 <html>
 <head>
 	<title>ango</title>
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/common.css">
 </head>
 <body ng-app="app">
-	<div ng-controller="crtl01">
-		<input type="text" ng-model="data.username" placeholder="请输入用户名"/>
-		<input type="text" ng-model="data.email" placeholder="邮箱"/>
-		<input type="text" ng-model="data.password" placeholder=""/>
-		<button ng-click="update()">update</button>
-	</div> 
-	<div ng-controller="crtl02" style="margin-top: 50px;">
-		<input type="text" ng-model="data.account" placeholder="请输入用户名或邮箱"/>
-		<input type="text" ng-model="data.password" placeholder=""/>
-		<button ng-click="update()">update</button>
-		<button ng-click="quite()">quite</button>
-	</div>
-	<div ng-controller="crtl03" style="margin-top: 50px;">
-		<input type="text" ng-model="data.aTitle" placeholder="输入标题"/>
-		<textarea ng-model="data.aContent"></textarea>
-		<select ng-model="data.aType">
-			<option value="">选择类型</option>
-			<option value="1">1111</option>
-			<option value="2">2222</option>
-			<option value="3">3333</option>
-		</select>
-		<button ng-click="update()">update</button>
+	<commonhead></commonhead>	
+	<div class="container" ui-view>
 	</div>
 </body>
-<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
+<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="./js/angular-ui-router.js"></script>
-<script type="text/javascript">
-	var app = angular.module('app', []);
-	app.controller('crtl01', ['$scope', '$http', function ($scope, $http) {
-		$scope.data = {
-			username: 'madonna',
-			email: '',
-			password: ''
-		}
-
-		$scope.update = function () {
-			$http({
-				method: 'post',
-				url: '/signup',
-				data: $scope.data,
-				dataType: 'json'
-			}).success(function (res) {
-				console.log(res);
-			})
-		}
-	}]);
-
-	app.controller('crtl02', ['$scope', '$http', function ($scope, $http) {
-		$scope.data = {
-			account: 'madonna',
-			password: ''
-		}
-
-		$scope.update = function () {
-			$http({
-				method: 'post',
-				url: '/signin',
-				data: $scope.data,
-				dataType: 'json'
-			}).success(function (res) {
-				console.log(res);
-			})
-		}
-		$scope.quite = function () {
-			$http({
-				method: 'get',
-				url: '/quite',
-			}).success(function (res) {
-				if (res === '1') {
-					console.log('退出成功');
-				};
-			})
-		}
-	}]);
-
-	app.controller('crtl03', ['$scope', '$http', function ($scope, $http) {
-		$scope.data = {
-			aTitle: 'madonna',
-			aContent: '',
-			aType: ''
-		}
-
-		$scope.update = function () {
-			$http({
-				method: 'post',
-				url: '/publish',
-				data: $scope.data,
-				dataType: 'json'
-			}).success(function (res) {
-				console.log(res);
-			})
-		}
-	}]);
-</script>
+<script type="text/javascript" src="./js/app.js"></script>
+<script type="text/javascript" src="./js/directive.js"></script>
+<script type="text/javascript" src="./js/controller.js"></script>
 </html>

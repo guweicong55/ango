@@ -16,8 +16,14 @@ router.post('/signup', sign.signUp);
 router.post('/signin', sign.signIn);
 router.get('/quite', sign.quite);
 
+//检测session用户是否登录
+router.get('/getsession', sign.getSession);
+
 //发布文章
 router.post('/publish', publish.publish);
+
+//获取文章列表
+router.get('/articlelist', publish.articleList);
 
 // 导出router,由入口文件app.js执行
 module.exports = router;

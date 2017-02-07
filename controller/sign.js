@@ -8,6 +8,7 @@ var tool = require('../common/tool');
 
 // 注册模块
 exports.signUp = function (req, res) {
+
 	// 获取表单信息
 	var ip = req.headers['x-forwarded-for'] ||
 		req.connection.remoteAddress ||
@@ -88,14 +89,23 @@ exports.signUp = function (req, res) {
 exports.signIn = function (req, res) {
 	
 	// 查看是否已登录
-	if (req.session.user) {
+	if (req.session.data) {
 		res.send('您已登录');
 		return;
 	}
 
+	var ip = req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
+		req.socket.remoteAddress ||
+		req.connection.socket.remoteAddress;
 	var data = req.body;
 	var account = validator.trim(data.account).toLowerCase();
 	var password = validator.trim(data.password);
+
+	if (account == '' || password == '') {
+		res.send('用户名或密码不能为空');
+		return;
+	}
 
 	user.find({'$or': [{
 		email: account
@@ -108,8 +118,20 @@ exports.signIn = function (req, res) {
 			res.send('用户不存在');
 		} else if (doc.length > 0) {
 			if (tool.mkCompare(password, doc[0].password)) {
-				req.session.user = account;
+				req.session.data = { user_name: doc[0].user_name, email: doc[0].email };
 				res.send('1');
+				user.update({'$or': [{
+					email: account
+				}, {
+					user_name: account
+				}]}, {$set: {
+					last_login_ip: ip,
+					last_login_time: moment().format()
+				}}, function (err) {
+					if (err) {
+						console.log(err);
+					}
+				})
 			} else {
 				res.send('密码错误');
 			};
@@ -121,4 +143,13 @@ exports.signIn = function (req, res) {
 exports.quite = function (req, res) {
 	req.session.destroy();
 	res.send('1');
+}
+
+// 检测session
+exports.getSession = function (req, res) {
+	if (req.session.data) {
+		res.send(req.session.data);
+	} else {
+		res.send('0');
+	}
 }
