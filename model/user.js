@@ -11,9 +11,9 @@ var user = new Schema({
 	password : 			{ type: String },					//密码
 	phone: 				{ type: String },					//手机号
 	last_login_ip: 		{ type: String },					//最后登录IP
-	last_login_time:	{ type: Date },						//最后登录时间
+	last_login_time:	{ type: Number },					//最后登录时间
 	reg_ip: 			{ type: String },					//注册IP
-	creat_at:　			{ type: Number, default: Date().now } 	//创建时间
+	creat_at:　			{ type: Number, default: Date.now } //创建时间
 }, {
 	versionKey: false
 });

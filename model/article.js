@@ -8,7 +8,7 @@ var article = new Schema({
 	content: 		{ type: String },		//内容
 	article_type: 	{ type: String },		//类型
 	author: 		{ type: String },		//作者
-	create_at: 		{ type: Date, default: Date.now },		//创建时间
+	create_at: 		{ type: Number, default: Date.now },		//创建时间
 	push: 			{ type: Number, default: 0 },    	//赞同
 	step: 			{ type: Number, default: 0 },		//踩
 }, {

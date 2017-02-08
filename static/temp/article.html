@@ -1,0 +1,31 @@
+<div class="container">
+	<h2 style="margin-top: 20px">
+		{{ resDate.title }}
+	</h2>
+	<p style="margin-top: 15px">
+		{{ resDate.create_at | date:'yyyy-MM-dd HH:mm' }} 发布者: {{ resDate.author }} 
+		<button class='small-btn' ng-click="praise(1)">赞:{{ push }}</button>
+		<button class='small-btn' ng-click="praise(0)">踩:{{ step }}</button>
+	</p>
+	<p class="content">
+		{{ resDate.content }}
+	</p>
+	<div class="arguments-box">
+		<h2>
+			评论
+		</h2>
+		<ul>
+			<li class="list-section" ng-repeat="argument in argumentsData">
+				<p>
+					<span class="author">{{ argument.author }}</span>
+					<span style="color: #aaa; margin-left: 15px">{{ argument.create_at | date: 'yyyy-MM-dd HH:mm' }}</span>
+				</p>
+				<p class="content">
+					{{ argument.content }}
+				</p>
+			</li>
+		</ul>
+		<textarea ng-model="newArgument" class="def-teaxt" placeholder="我的回复"></textarea>
+		<button  class="def-btn" ng-click="update()">update</button>
+	</div>
+</div>

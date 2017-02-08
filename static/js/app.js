@@ -23,5 +23,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		url: '/publish',
 		templateUrl: './temp/publish.html',
 		controller: 'publish'
+	}).state({
+		name: 'article',
+		url: '/article/:id',
+		templateUrl: './temp/article.html',
+		controller: 'article'
 	})
 })

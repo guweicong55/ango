@@ -102,3 +102,33 @@
 	color: #666;
 	margin-top: 10px;
 }
+
+.article-title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #1976D2;
+}
+.arguments-box {
+	width: 100%;
+	margin-top: 20px;
+	background: #f6f6f6;
+	box-sizing: border-box;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 5px;	
+}
+
+.author {
+	font-weight: bold;
+	font-size: 13px;
+	color: #666;
+}
+.small-btn {
+	cursor: pointer;
+	height: 26px;
+	padding: 0 10px;
+	line-height: 26px;
+	border: 1px solid #ddd;
+	margin-top: 10px;
+	border-radius: 3px;
+}

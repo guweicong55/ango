@@ -1,14 +1,14 @@
 <div class="container">
 	<ul>
 		<li class="list-section" ng-repeat="list in lists">
-			<h2>
+			<a class="article-title" ng-href="#/article/{{ list._id }}">
 				{{ list.title }}
-			</h2>
+			</a>
 			<p class="content">
 				{{ list.content }}
 			</p>
 			<p style="margin-top: 5px">
-				{{ time(list.create_at) | date:'yyyy-MM-dd HH:mm' }} 发布者: {{ list.author }} 赞： {{ list.push }} 踩: {{ list.step }}
+				{{ list.create_at | date:'yyyy-MM-dd HH:mm' }} 发布者: {{ list.author }} 赞: {{ list.push }} 踩: {{ list.step }}
 			</p>	
 		</li>
 	</ul>

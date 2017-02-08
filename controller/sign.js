@@ -126,7 +126,7 @@ exports.signIn = function (req, res) {
 					user_name: account
 				}]}, {$set: {
 					last_login_ip: ip,
-					last_login_time: moment().format()
+					last_login_time: new Date().getTime()
 				}}, function (err) {
 					if (err) {
 						console.log(err);

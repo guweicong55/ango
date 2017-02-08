@@ -25,5 +25,14 @@ router.post('/publish', publish.publish);
 //获取文章列表
 router.get('/articlelist', publish.articleList);
 
+//获取具体文章内容以及评论 
+router.post('/article', publish.details);
+
+//提交评论
+router.post('/argument', publish.argument);
+
+//点赞/踩
+router.post('/praise', publish.praise);
+
 // 导出router,由入口文件app.js执行
 module.exports = router;
