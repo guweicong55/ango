@@ -1,8 +1,8 @@
 .header-nav {
 	height: 60px;
 	width: 100%;
-	background: #f3f4f5;
-	border-bottom: 1px solid #d5d5d5;
+	background: linear-gradient(to bottom,#086ed5,#055db5);
+	border-bottom: 1px solid #044e97;
 }
 .container {
 	width: 1000px;
@@ -14,11 +14,9 @@
 	height: 60px;
 	float: left;
 	font-size: 24px;
-	color: #333;
+	color: #fff;
 	line-height: 60px;
-}
-.logo:hover {
-	color: #666;
+	font-weight: bold;
 }
 .navbar-right {
 	float: right;
@@ -30,7 +28,7 @@
 	margin-left: 20px;
 }
 .navbar-right li a {
-	color: #1976D2;
+	color: #fff;
 	font-size: 14px; 
 }
 .navbar-right li a:hover {
