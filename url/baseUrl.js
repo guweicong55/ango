@@ -31,6 +31,9 @@ router.post('/article', publish.details);
 //提交评论
 router.post('/argument', publish.argument);
 
+//获取某页评论
+router.post('/getargument', publish.getArgument);
+
 //点赞/踩
 router.post('/praise', publish.praise);
 

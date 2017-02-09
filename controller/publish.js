@@ -47,50 +47,33 @@ exports.articleList = function (req, res) {
 	});
 }
 
-//获取具体文章内容以及评论
+//获取具体文章内容
 exports.details = function (req, res) {
 	var id = req.body.id;
-	var reslove = {
-		article: null,
-		arguments: null
-	};
+	var reslove = {};
 
-	var ep = new eventproxy();
-	ep.on('details', function (fn) {
-		fn();
-	});
+	article.findById(id, function (err, doc) {		
+		if (err) {
+			console.log(err);
+			return;
+		}
+		reslove['article'] = doc;
+		if (req.session.data) {
+			praise.find({ article_id: id, author:req.session.data.user_name }, function (err, doc) {			
+				if (err) {
+					console.log(err);
+					return;
+				}
 
-	article.findById(id, function (err, doc) {
-		ep.emit('details', function () {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			reslove['article'] = doc;
-		});		
-	});
-
-	praise.find({ article_id: id }, function (err, doc) {
-		ep.emit('details', function () {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			reslove['praise'] = doc;
-		});
-	});
-
-	argument.find({ article_id: id }, function (err, doc) {
-		ep.emit('details', function () {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			reslove['arguments'] = doc;
+				if (doc.length > 0) {
+					reslove['praise'] = doc[0].is_good;
+				}	
+				res.send(reslove);		
+			});	
+		} else {
 			res.send(reslove);
-		});		
-	});
-	
+		}	
+	});			
 }
 
 //提交评论
@@ -141,8 +124,89 @@ exports.praise = function (req, res) {
 			return;
 		}
 
+		//如果已经点过赞，再点击取消赞
 		if (doc.length > 0) {
-			res.send('你已经赞/踩过');
+			if (doc[0].is_good === req.body.is_good && req.body.is_good === 1) {
+				praise.remove({'$and': [
+					{ author: req.session.data.user_name },
+					{ article_id: req.body.id }
+				]}, function () {
+					article.update({
+						_id: req.body.id
+					}, { 
+						$inc:{ push: -1 }						
+					}, function (err) {
+						if (err) {
+							console.log(err);
+							return;
+						}
+						res.send('-1');
+					});
+				});
+			} 
+			//如果已经点过踩，再点击取消踩
+			else if (doc[0].is_good === req.body.is_good && req.body.is_good === 0) {
+				praise.remove({'$and': [
+					{ author: req.session.data.user_name },
+					{ article_id: req.body.id }
+				]}, function () {
+					article.update({
+						_id: req.body.id
+					}, { 
+						$inc:{ step: -1 }						
+					}, function (err) {
+						if (err) {
+							console.log(err);
+							return;
+						}
+						res.send('-0');
+					});
+				});
+				
+			} 
+			//如果已经点过赞，再点击踩，将赞转为踩 is_good = 0
+			else if (doc[0].is_good === 1 && req.body.is_good === 0) {
+				praise.update({'$and': [
+					{ author: req.session.data.user_name },
+					{ article_id: req.body.id }
+				]}, {
+					$set: {	is_good: 0 }
+				}, function () {
+					article.update({
+						_id: req.body.id
+					}, { 
+						$inc:{ step: 1, push: -1 }						
+					}, function (err) {
+						if (err) {
+							console.log(err);
+							return;
+						}
+						res.send('=0');
+					});
+				});
+			} 
+			//如果已经点过踩，再点击赞，将踩转为赞 is_good = 1
+			else if (doc[0].is_good === 0 && req.body.is_good === 1) {
+				praise.update({'$and': [
+					{ author: req.session.data.user_name },
+					{ article_id: req.body.id }
+				]}, {
+					$set: {	is_good: 1 }
+				}, function () {
+					article.update({
+						_id: req.body.id
+					}, { 
+						$inc:{ step: -1, push: 1 }					
+					}, function (err) {
+						if (err) {
+							console.log(err);
+							return;
+						}
+						res.send('=1');
+					});
+				});
+			}
+ 							
 			return;
 		}
 
@@ -179,9 +243,36 @@ exports.praise = function (req, res) {
 						}
 					});
 				}
-
 				res.send('1');
 			})
 		}
 	})
+}
+
+//获取某一页的评论
+exports.getArgument = function (req, res) {
+	var reslove = {};
+	var ep = new eventproxy();
+	ep.on('arr', function (fn) {
+		fn();
+	});
+
+	//获取评论总条数
+	argument.count({ article_id: req.body.id }, function (err, count) {
+		ep.emit('arr', function () {
+			reslove['count'] = count;
+		});
+	});
+
+	//获取评论
+	argument.find({ article_id: req.body.id })
+	.sort({ create_at: -1 })
+	.limit(10*req.body.count)
+	.skip(10*(req.body.count-1))
+	.exec(function (err, doc) {
+		ep.emit('arr', function () {
+			reslove['data'] = doc;
+			res.send(reslove);
+		});		
+	});
 }

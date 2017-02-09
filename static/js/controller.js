@@ -114,8 +114,15 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 	
 	$scope.push = 0;
 	$scope.step = 0;
-	
-	// 获取文章和评论
+	$scope.pushClass = '';
+	$scope.stepClass = '';
+
+	//分页页数
+	$scope.pageCount = [];
+	$scope.curPage = 1;
+
+
+	// 获取文章
 	$http({
 		method: 'post',
 		url: '/article',
@@ -123,20 +130,43 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		dataType: 'json'
 	}).success(function (res) {
 		$scope.resDate = res.article;
-		$scope.argumentsData = res.arguments;
 
-		//读取赞/踩的数量
-		if (res.praise.length > 0) {
-			for (var i = res.praise.length - 1; i >= 0; i--) {
-				if (res.praise[i].is_good === 1) {
-					$scope.push += 1;
-				} else {
-					$scope.step += 1;
-				}
-			};
+		if (res.praise === 1) {
+			$scope.pushClass = 'light-btn'
+		} else if (res.praise === 0) {
+			$scope.stepClass = 'light-btn'
 		}
+
+
 		console.log(res);
 	});
+
+	// 获取分页评论
+	$scope.getArgument = function (num) {
+		$http({
+			method: 'post',
+			url: '/getargument',
+			data: { id: $stateParams.id, count: num },
+			dataType: 'json'
+		}).success(function (res) {
+			console.log(res);
+			$scope.pageCount = [];
+			$scope.argumentsData = res.data;
+			$scope.curPage = num;
+			if (res.count > 10) {
+				for (var i = 1; i <= Math.ceil(res.count/10); i++) {
+					if (i === $scope.curPage) {
+						$scope.pageCount.push({ num: i, style: 'active' });
+					} else {
+						$scope.pageCount.push({ num: i, style: '' });
+					}
+					
+				}
+			}
+		})
+	}
+	//初始化页面获取第一页评论数据
+	$scope.getArgument(1);
 
 	// 提交评论
 	$scope.update = function () {
@@ -148,7 +178,7 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		}).success(function (res) {
 			if (res.state === '1') {
 				alert('回复成功');
-				$scope.argumentsData.push({
+				$scope.argumentsData.unshift({
 					author: res.user,
 					content: $scope.newArgument,
 					create_at: new Date().getTime()
@@ -162,6 +192,7 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 
 	//点赞
 	$scope.praise = function (gob) {
+
 		$http({
 			method: 'post',
 			url: '/praise',
@@ -170,12 +201,30 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		}).success(function (res) {
 			if (res === '1') {
 				if (gob === 1) {
-					$scope.push += 1;
+					$scope.resDate.push += 1;
+					$scope.pushClass = 'light-btn';
 				} else {
-					$scope.step += 1;
+					$scope.resDate.step += 1;
+					$scope.stepClass = 'light-btn';
 				}
+			} else if (res === '-1') {
+				$scope.resDate.push -= 1;
+				$scope.pushClass = '';
+			} else if (res === '-0') {
+				$scope.resDate.step -= 1;
+				$scope.stepClass = '';
+			} else if (res === '=1') {
+				$scope.resDate.push += 1;
+				$scope.resDate.step -= 1;
+				$scope.pushClass = 'light-btn';
+				$scope.stepClass = '';
+			}  else if (res === '=0') {
+				$scope.resDate.push -= 1;
+				$scope.resDate.step += 1;
+				$scope.pushClass = '';
+				$scope.stepClass = 'light-btn';
 			} else {
-				alert(res);
+				window.location.href = 'app.html#/signin';
 			}
 		})
 	}

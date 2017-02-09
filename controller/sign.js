@@ -71,13 +71,15 @@ exports.signUp = function (req, res) {
 					}).save(function  (err) {
 						if (!err) {
 							res.send('1');
+							
+							//发送邮件
+							//tool.sendEmail(email, '账号注册成功', '<h1>hello world</h1>');
 						} else {
 							console.log(err);			
 						}
 					});
 
-					//发送邮件
-					//tool.sendEmail(email, '账号注册成功', '<h1>hello world</h1>');
+					
 				}
 			})
 			

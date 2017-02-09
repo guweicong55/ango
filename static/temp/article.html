@@ -4,8 +4,8 @@
 	</h2>
 	<p style="margin-top: 15px">
 		{{ resDate.create_at | date:'yyyy-MM-dd HH:mm' }} 发布者: {{ resDate.author }} 
-		<button class='small-btn' ng-click="praise(1)">赞:{{ push }}</button>
-		<button class='small-btn' ng-click="praise(0)">踩:{{ step }}</button>
+		<button class='small-btn' ng-click="praise(1)" ng-class="pushClass">赞:{{ resDate.push }}</button>
+		<button class='small-btn' ng-click="praise(0)" ng-class="stepClass">踩:{{ resDate.step }}</button>
 	</p>
 	<p class="content">
 		{{ resDate.content }}
@@ -25,6 +25,13 @@
 				</p>
 			</li>
 		</ul>
+		<div class="page-box">
+			<ul>
+				<li class="page-sections" ng-class="i.style" ng-click="getArgument(i.num)" ng-repeat="i in pageCount">
+					{{ i.num }}
+				</li>
+			</ul>
+		</div>
 		<textarea ng-model="newArgument" class="def-teaxt" placeholder="我的回复"></textarea>
 		<button  class="def-btn" ng-click="update()">update</button>
 	</div>
