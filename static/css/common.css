@@ -1,5 +1,5 @@
 .header-nav {
-	height: 60px;
+	height: 45px;
 	width: 100%;
 	background: linear-gradient(to bottom,#086ed5,#055db5);
 	border-bottom: 1px solid #044e97;
@@ -11,20 +11,20 @@
 }
 .logo {
 	display: block;
-	height: 60px;
+	height: 45px;
 	float: left;
 	font-size: 24px;
 	color: #fff;
-	line-height: 60px;
+	line-height: 45px;
 	font-weight: bold;
 }
 .navbar-right {
 	float: right;
 }
 .navbar-right li {
-	height: 60px;
+	height: 45px;
 	float: left;
-	line-height: 60px;
+	line-height: 45px;
 	margin-left: 20px;
 }
 .navbar-right li a {
@@ -88,24 +88,69 @@
 	height: 150px;
 	padding: 10px;
 }
+.main-left {
+	width: 632px;
+	overflow: hidden;
+	float: left;
+}
+.main-right {
+	width: 280px;
+	float: right;
+	overflow: hidden;
+}
+.mr-item-box {
+	display: block;
+	overflow: hidden;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+}
+.mr-item {
+	height: 28px;
+	width: 100%;
+	line-height: 28px;
+}
+.mr-item a {
+	color: #666;
+}
+.mr-item a:hover {
+	color: #259;
+}
 .list-section {
 	width: 100%;
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
-	padding: 10px 0;
+	padding: 15px 0;
 }
 
 .content {
-	font-size: 16px;
-	color: #666;
-	margin-top: 10px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #333;
+	margin-top: 5px;
 }
 
 .article-title {
-	font-size: 24px;
+	font-size: 15px;
 	font-weight: bold;
-	color: #1976D2;
+	color: #259;
+	display: block;
 }
+.article-title:hover {
+	text-decoration: underline;
+}
+.gray-content {
+	font-size: 13px;
+	color: #999;
+	margin-top: 12px;
+}
+.main-author {
+	color: #333;
+	font-size: 13px;
+	font-weight: bold;
+	margin-top: 5px;
+	display: block;
+}
+
 .arguments-box {
 	width: 100%;
 	margin-top: 20px;

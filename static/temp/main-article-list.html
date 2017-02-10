@@ -1,0 +1,14 @@
+<ul>
+	<li class="list-section" ng-repeat="list in lists">
+		<a class="article-title" ng-href="#/article/{{ list._id }}">
+			{{ list.title }}
+		</a>
+		<a href="javascript:;" class="main-author"> {{ list.author }} </a>
+		<p class="content">
+			{{ list.content }}
+		</p>
+		<p class="gray-content">
+			{{ list.push }}人赞同 ▪ 发表于{{ list.create_at | date:'yyyy-MM-dd HH:mm' }} <!-- 踩: {{ list.step }} -->
+		</p>	
+	</li>
+</ul>
