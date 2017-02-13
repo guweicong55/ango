@@ -40,13 +40,28 @@ exports.publish = function (req, res) {
 
 //获取文章列表
 exports.articleList = function (req, res) {
-	var resData = null;
+	var resData = [];
 
-	article.find().lean().exec(function (err, doc) {
-    	resData = JSON.stringify(doc);
-    	resData[0].follow = '1';
-    	console.log(resData[0].follow);
-    	res.send(resData);
+	article.find({}).lean().exec(function (err, doc) {
+    	for (var i = 0; i < doc.length; i++) {
+    // 		resData[i] = {
+    // 			title: 			doc[i].title,
+				// content: 		doc[i].content,
+				// article_type: 	doc[i].article_type,
+				// author: 		doc[i].author,
+				// create_at: 		doc[i].create_at,
+				// push: 			doc[i].push,
+				// step: 			doc[i].step,
+				// isFollow:  		'1'
+    // 		}
+    		resData[i] = {};
+    		for (let j in doc[i]) {
+    			console.log(j, doc[i][j]);
+    			resData[i][j] = doc[i][j];
+    			resData[i]['isFollow'] = 1;
+    		}
+    	}
+    	//res.send(resData);
 	});
 	
 	
