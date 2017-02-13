@@ -7,7 +7,22 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 	}).success(function (res) {
 		$scope.lists = res;
 		console.log(res);
-	});	
+	});
+
+	$scope.follow = function (id, isFollow) {
+		$http({
+			method: 'post',
+			url: '/follow',
+			data: { article_id: id },
+			dataType: 'json'
+		}).success(function (res) {
+			if (res === '1'){
+				isFollow = res;
+			} else if (res === '-1') {
+				isFollow = false;
+			}
+		});
+	}	
 }]);
 
 app.controller('header', ['$scope', '$http', function ($scope, $http) {
@@ -124,10 +139,9 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 
 	// 获取文章
 	$http({
-		method: 'post',
+		method: 'get',
 		url: '/article',
-		data: $scope.data,
-		dataType: 'json'
+		params: $scope.data,
 	}).success(function (res) {
 		$scope.resDate = res.article;
 
@@ -136,18 +150,14 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		} else if (res.praise === 0) {
 			$scope.stepClass = 'light-btn'
 		}
-
-
-		console.log(res);
 	});
 
 	// 获取分页评论
 	$scope.getArgument = function (num) {
 		$http({
-			method: 'post',
+			method: 'get',
 			url: '/getargument',
-			data: { id: $stateParams.id, count: num },
-			dataType: 'json'
+			params: { id: $stateParams.id, count: num },
 		}).success(function (res) {
 			console.log(res);
 			$scope.pageCount = [];

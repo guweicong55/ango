@@ -27,5 +27,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	}).state('main.main-article-list', {
 		url: 'main-article-list',
 		templateUrl: './temp/main-article-list.html',
+	}).state('main.my-follow', {
+		url: 'my-follow',
+		templateUrl: './temp/my-follow.html',
 	})
 })

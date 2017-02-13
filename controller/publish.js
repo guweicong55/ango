@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
+var url = require('url');
 
 var article = require('../model/article').article;
 var argument = require('../model/argument').argument;
 var praise = require('../model/praise').praise;
+var follow = require('../model/follow').follow;
 
 // 发布文章
 exports.publish = function (req, res) {
@@ -38,18 +40,22 @@ exports.publish = function (req, res) {
 
 //获取文章列表
 exports.articleList = function (req, res) {
-	article.find({}, function (err, doc) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		res.send(doc);
+	var resData = null;
+
+	article.find().lean().exec(function (err, doc) {
+    	resData = JSON.stringify(doc);
+    	resData[0].follow = '1';
+    	console.log(resData[0].follow);
+    	res.send(resData);
 	});
+	
+	
 }
 
 //获取具体文章内容
 exports.details = function (req, res) {
-	var id = req.body.id;
+	var id = url.parse(req.url, true).query.id;
+	console.log(id);
 	var reslove = {};
 
 	article.findById(id, function (err, doc) {		
@@ -252,23 +258,24 @@ exports.praise = function (req, res) {
 //获取某一页的评论
 exports.getArgument = function (req, res) {
 	var reslove = {};
+	var data = url.parse(req.url, true).query;
 	var ep = new eventproxy();
 	ep.on('arr', function (fn) {
 		fn();
 	});
 
 	//获取评论总条数
-	argument.count({ article_id: req.body.id }, function (err, count) {
+	argument.count({ article_id: data.id }, function (err, count) {
 		ep.emit('arr', function () {
 			reslove['count'] = count;
 		});
 	});
 
 	//获取评论
-	argument.find({ article_id: req.body.id })
+	argument.find({ article_id: data.id })
 	.sort({ create_at: -1 })
-	.limit(10*req.body.count)
-	.skip(10*(req.body.count-1))
+	.limit(10*data.count)
+	.skip(10*(data.count-1))
 	.exec(function (err, doc) {
 		ep.emit('arr', function () {
 			reslove['data'] = doc;

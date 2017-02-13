@@ -10,6 +10,7 @@ var router = express.Router();
 
 var sign = require('../controller/sign');
 var publish = require('../controller/publish');
+var fac = require('../controller/followAndCollection');
 
 // 注册登录退出
 router.post('/signup', sign.signUp);
@@ -26,16 +27,19 @@ router.post('/publish', publish.publish);
 router.get('/articlelist', publish.articleList);
 
 //获取具体文章内容以及评论 
-router.post('/article', publish.details);
+router.get('/article', publish.details);
 
 //提交评论
 router.post('/argument', publish.argument);
 
 //获取某页评论
-router.post('/getargument', publish.getArgument);
+router.get('/getargument', publish.getArgument);
 
 //点赞/踩
 router.post('/praise', publish.praise);
+
+//关注 | 取消关注
+router.post('/follow', fac.follow);
 
 // 导出router,由入口文件app.js执行
 module.exports = router;

@@ -143,6 +143,13 @@
 	color: #999;
 	margin-top: 12px;
 }
+.follow {
+	color: #999;
+}
+.follow:hover {
+	text-decoration: underline;
+	color: #259;
+}
 .main-author {
 	color: #333;
 	font-size: 13px;
