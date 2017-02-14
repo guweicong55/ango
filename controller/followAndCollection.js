@@ -13,7 +13,7 @@ exports.getFollowList = function (req, res) {
 	var resData = [];
 	var user_name = req.session.data.user_name;
 	follow.find({create_by: user_name})
-		.populate('title content')
+		.populate('post','title content')
 		.exec(function(err, doc){
 			res.send(doc);
 		});
@@ -28,7 +28,7 @@ exports.follow = function (req, res) {
 	}
 
 	var article_id = req.body.article_id;
-	var query = { article_id: article_id, create_by: req.session.data.user_name }
+	var query = { article_id: article_id, create_by: req.session.data.user_name, post: { _id: article_id } }
 
 	follow.findOne(query, function (err, doc) {
 		if (doc) {
