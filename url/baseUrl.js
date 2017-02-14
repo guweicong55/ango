@@ -41,5 +41,8 @@ router.post('/praise', publish.praise);
 //关注 | 取消关注
 router.post('/follow', fac.follow);
 
+//获取关注列表
+router.get('/getfollow', fac.getFollowList);
+
 // 导出router,由入口文件app.js执行
 module.exports = router;

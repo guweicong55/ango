@@ -8,7 +8,7 @@
 			{{ list.content }}
 		</p>
 		<p class="gray-content">
-			<a href="javascript:;" class="follow" ng-click="follow(list._id, list.isFollow)">{{ list.isFollow ? '取消关注' : '关注文章' }}</a>
+			<a href="javascript:;" class="follow" ng-click="follow(list._id, list)">{{ list.isFollow ? '取消关注' : '关注文章' }}</a>
 			▪ {{ list.push }}人赞同 ▪ 发表于{{ list.create_at | date:'yyyy-MM-dd HH:mm' }} <!-- 踩: {{ list.step }} -->
 		</p>	
 	</li>

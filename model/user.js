@@ -18,4 +18,7 @@ var user = new Schema({
 	versionKey: false
 });
 
+user.index({ user_name: 1 }, { unique: true });
+user.index({ email: 1 }, { unique: true });
+
 exports.user = mongoose.model('user', user);

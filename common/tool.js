@@ -39,3 +39,26 @@ exports.sendEmail = function (email, title, html) {
 		return true;
 	})
 }
+
+//bson转json
+exports.beJson = function (doc) {
+	var resData = [];
+	for (var i = 0; i < doc.length; i++) {
+		/*resData[i] = {
+			title: 			doc[i].title,
+			content: 		doc[i].content,
+			article_type: 	doc[i].article_type,
+			author: 		doc[i].author,
+			create_at: 		doc[i].create_at,
+			push: 			doc[i].push,
+			step: 			doc[i].step,
+			isFollow:  		'1'
+		}*/
+
+		resData[i] = {};
+		for (var j in doc[i]) {
+			resData[i][j] = doc[i][j];
+		}
+	}
+	return resData;
+}

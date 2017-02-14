@@ -9,7 +9,7 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 		console.log(res);
 	});
 
-	$scope.follow = function (id, isFollow) {
+	$scope.follow = function (id, item) {
 		$http({
 			method: 'post',
 			url: '/follow',
@@ -17,9 +17,11 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 			dataType: 'json'
 		}).success(function (res) {
 			if (res === '1'){
-				isFollow = res;
+				item.isFollow = 1;
 			} else if (res === '-1') {
-				isFollow = false;
+				item.isFollow = '';
+			} else if (res === '0') {
+				window.location.href = 'app.html#/signin';
 			}
 		});
 	}	
@@ -240,3 +242,12 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 	}
 
 }]);
+
+app.controller('follow', ['$scope', '$http', function ($scope, $http) {
+	$http({
+		method: 'get',
+		url: '/getfollow'
+	}).success(function (res) {
+		console.log(res);
+	})
+}])

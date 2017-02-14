@@ -2,17 +2,28 @@ var mongoose = require('mongoose');
 var url = require('url');
 
 var follow = require('../model/follow').follow;
+var article = require('../model/article').article;
 
-/*exports.getFollowList = function (req, res) {
-	var creat_by = url.parse(req.url, true).qurey;
+exports.getFollowList = function (req, res) {
+	if (!req.session.data) {
+		res.send('0');
+		return;
+	}
+	
+	var resData = [];
+	var user_name = req.session.data.user_name;
+	follow.find({create_by: user_name})
+		.populate('title content')
+		.exec(function(err, doc){
+			res.send(doc);
+		});
 
-
-}*/
+}
 
 //关注 | 取消关注
 exports.follow = function (req, res) {
 	if (!req.session.data) {
-		res.send('未登录');
+		res.send('0');
 		return;
 	}
 

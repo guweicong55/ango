@@ -15,4 +15,7 @@ var article = new Schema({
 	versionKey: false
 });
 
+article.index({author: 1});
+article.index({create_at: -1});
+
 exports.article = mongoose.model('article', article);

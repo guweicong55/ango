@@ -30,5 +30,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	}).state('main.my-follow', {
 		url: 'my-follow',
 		templateUrl: './temp/my-follow.html',
+		controller: 'follow'
 	})
 })

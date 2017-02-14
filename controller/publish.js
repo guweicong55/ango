@@ -8,6 +8,7 @@ var article = require('../model/article').article;
 var argument = require('../model/argument').argument;
 var praise = require('../model/praise').praise;
 var follow = require('../model/follow').follow;
+var beJson = require('../common/tool').beJson;
 
 // 发布文章
 exports.publish = function (req, res) {
@@ -40,31 +41,29 @@ exports.publish = function (req, res) {
 
 //获取文章列表
 exports.articleList = function (req, res) {
-	var resData = [];
-
 	article.find({}).lean().exec(function (err, doc) {
-    	for (var i = 0; i < doc.length; i++) {
-    // 		resData[i] = {
-    // 			title: 			doc[i].title,
-				// content: 		doc[i].content,
-				// article_type: 	doc[i].article_type,
-				// author: 		doc[i].author,
-				// create_at: 		doc[i].create_at,
-				// push: 			doc[i].push,
-				// step: 			doc[i].step,
-				// isFollow:  		'1'
-    // 		}
-    		resData[i] = {};
-    		for (let j in doc[i]) {
-    			console.log(j, doc[i][j]);
-    			resData[i][j] = doc[i][j];
-    			resData[i]['isFollow'] = 1;
+    	var resData = beJson(doc);
+    	var a = 0;
+    	if (req.session.data) {
+    		for (var s = 0; s < resData.length; s++) {
+    			//要做的res.send()操作必须在follow.findOne的callback中，否则会出现未知的奇葩错误
+    			//不可以写在for或者if中
+    			follow.findOne({create_by: req.session.data.user_name, article_id: resData[s]._id}, function (err, doc) {    				
+    				if (doc) {
+    					resData[a].isFollow = 1;
+    				} 
+
+    				if (a == resData.length-1) {
+	    				res.send(resData);
+	    			}
+
+	    			a++;	
+    			});				
     		}
+    	} else {
+    		res.send(resData);
     	}
-    	//res.send(resData);
-	});
-	
-	
+	});		
 }
 
 //获取具体文章内容
