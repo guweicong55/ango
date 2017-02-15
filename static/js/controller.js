@@ -1,3 +1,4 @@
+//首页
 app.controller('main', ['$scope', '$http', function ($scope, $http) {
 	$scope.lists = null;
 
@@ -27,6 +28,7 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 	}	
 }]);
 
+//主导航
 app.controller('header', ['$scope', '$http', function ($scope, $http) {
 	$scope.isLogin = false;
 	$scope.username = null;
@@ -54,6 +56,7 @@ app.controller('header', ['$scope', '$http', function ($scope, $http) {
 	}
 }]);
 
+//注册
 app.controller('signup', ['$scope', '$http', function ($scope, $http) {
 	$scope.data = {
 		username: '',
@@ -78,6 +81,7 @@ app.controller('signup', ['$scope', '$http', function ($scope, $http) {
 	}
 }]);
 
+//登录
 app.controller('signin', ['$scope', '$http', function ($scope, $http) {
 
 	$scope.data = {
@@ -102,6 +106,7 @@ app.controller('signin', ['$scope', '$http', function ($scope, $http) {
 	}
 }]);
 
+//发布文章
 app.controller('publish', ['$scope', '$http', function ($scope, $http) {
 	$scope.data = {
 		aTitle: '',
@@ -121,6 +126,7 @@ app.controller('publish', ['$scope', '$http', function ($scope, $http) {
 	}
 }]);
 
+//文章详情
 app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
 	$scope.data = { id:　$stateParams.id };
 	$scope.user = '';
@@ -243,11 +249,14 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 
 }]);
 
+//我关注的文章
 app.controller('follow', ['$scope', '$http', function ($scope, $http) {
+	$scope.resDate = false;
 	$http({
 		method: 'get',
 		url: '/getfollow'
 	}).success(function (res) {
+		$scope.resDate = res;
 		console.log(res);
 	})
 }])

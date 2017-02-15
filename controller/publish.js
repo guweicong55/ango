@@ -28,7 +28,7 @@ exports.publish = function (req, res) {
 		title: data.aTitle,
 		content: data.aContent,
 		author: user.user_name,
-		article_type: data.aType
+		article_type: data.aType,
 	}).save(function (err) {
 		if (err) {
 			res.send('发布失败');

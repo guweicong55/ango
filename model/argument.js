@@ -10,4 +10,6 @@ var argument = new Schema({
 	versionKey: false
 });
 
+argument.index({ author: 1 });
+
 exports.argument = mongoose.model('argument', argument);
