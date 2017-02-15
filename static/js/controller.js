@@ -1,31 +1,10 @@
 //首页
 app.controller('main', ['$scope', '$http', function ($scope, $http) {
-	$scope.lists = null;
-
-	$http({
-		method: 'get',
-		url: '/articlelist'
-	}).success(function (res) {
-		$scope.lists = res;
-		console.log(res);
-	});
-
-	$scope.follow = function (id, item) {
-		$http({
-			method: 'post',
-			url: '/follow',
-			data: { article_id: id },
-			dataType: 'json'
-		}).success(function (res) {
-			if (res === '1'){
-				item.isFollow = 1;
-			} else if (res === '-1') {
-				item.isFollow = '';
-			} else if (res === '0') {
-				window.location.href = 'app.html#/signin';
-			}
-		});
-	}	
+		$scope.flag = null;
+		$scope.tab = function (flag) {
+			$scope.flag = flag;
+			console.log($scope.flag);
+		};
 }]);
 
 //主导航
@@ -53,6 +32,10 @@ app.controller('header', ['$scope', '$http', function ($scope, $http) {
 				$scope.isLogin = false;	
 			};
 		})
+	}
+
+	$scope.toMain = function () {
+		window.location.href = 'app.html'
 	}
 }]);
 
@@ -249,14 +232,61 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 
 }]);
 
+//文章主页
+app.controller('article-list', ['$scope', '$http', function ($scope, $http) {
+	$scope.lists = null;
+
+	$http({
+		method: 'get',
+		url: '/articlelist'
+	}).success(function (res) {
+		$scope.lists = res;
+		console.log(res);
+	});
+
+	$scope.follow = function (id, item) {
+		$http({
+			method: 'post',
+			url: '/follow',
+			data: { article_id: id },
+			dataType: 'json'
+		}).success(function (res) {
+			if (res === '1'){
+				item.isFollow = 1;
+			} else if (res === '-1') {
+				item.isFollow = '';
+			} else if (res === '0') {
+				window.location.href = 'app.html#/signin';
+			}
+		});
+	}
+}]);
+
 //我关注的文章
 app.controller('follow', ['$scope', '$http', function ($scope, $http) {
-	$scope.resDate = false;
+	$scope.resData = false;
+	$scope.follow = function (id, item) {
+		$http({
+			method: 'post',
+			url: '/follow',
+			data: { article_id: id },
+			dataType: 'json'
+		}).success(function (res) {
+			if (res === '1'){
+				item.isFollow = 1;
+			} else if (res === '-1') {
+				item.isFollow = '';
+			} else if (res === '0') {
+				window.location.href = 'app.html#/signin';
+			}
+		});
+	}	
+
 	$http({
 		method: 'get',
 		url: '/getfollow'
 	}).success(function (res) {
-		$scope.resDate = res;
+		$scope.resData = res;
 		console.log(res);
 	})
 }])

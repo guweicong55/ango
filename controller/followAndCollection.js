@@ -12,7 +12,6 @@ exports.getFollowList = function (req, res) {
 		return;
 	}
 
-	var docLen = 0;
 	var user_name = req.session.data.user_name;
 	follow.find({create_by: user_name})
 		.populate('post','title author')
@@ -21,11 +20,12 @@ exports.getFollowList = function (req, res) {
 			ep.after('data', doc.length, function (data) {
 				res.send(data);
 			});
-			doc.forEach(function (val, index) {
-				argument.count({ article_id: doc[index].post._id }).exec(function (err, arg) {
-					follow.count({ article_id: doc[index].post._id }).exec(function (err, fo) {
+			doc.forEach(function (val, index) {				
+				argument.count({ article_id: val.post._id }).exec(function (err, arg) {
+					follow.count({ article_id: val.post._id }).exec(function (err, fo) {
 						ep.emit('data', {
-							title: doc[index].post.title,
+							id: val.post._id,
+							title: val.post.title,
 							argCount: arg,
 							folCount: fo,
 							isFollow: 1

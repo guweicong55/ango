@@ -108,9 +108,22 @@
 	height: 28px;
 	width: 100%;
 	line-height: 28px;
+	margin-top: 5px;
 }
-.mr-item a {
+.mr-item-a {
+	display: block;
+	border-radius: 3px;
+	box-sizing: border-box;
 	color: #666;
+	padding-left: 10px;
+}
+.mr-item-a:hover {
+	background: #eff6fa;
+	color: #259 !important;
+}
+.mr-item-active {
+	background: #eff6fa;
+	color: #259 !important;
 }
 .mr-item a:hover {
 	color: #259;

@@ -1,10 +1,12 @@
 <ul>
-	<li class="list-section">
-		<a class="article-title">
-			前端程序猿的日常是什么样的？
+	<li class="list-section" ng-repeat="res in resData">
+		<a class="article-title" ng-href="#/article/{{ res.id }}">
+			{{ res.title }}
 		</a>
 		<p class="gray-content">
-			取消关注 • 10 个回答 • 101 人关注
+			<a href="javascript:;" class="follow" ng-click="follow(res.id, res)">	{{ res.isFollow ? '取消关注' : '关注文章' }}
+			</a>
+			 • {{ res.argCount }} 个回答 • {{ res.folCount }} 人关注
 		</p>	
 	</li>
 </ul>
