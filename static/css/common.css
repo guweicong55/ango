@@ -131,7 +131,7 @@
 .list-section {
 	width: 100%;
 	overflow: hidden;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px dotted #ddd;
 	padding: 15px 0;
 }
 
@@ -223,4 +223,18 @@
 	background: #1976D2;
 	border-color: #1976D2; 
 	color: #fff;
+}
+.gz-bar {
+	height: 24px;
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+}
+.gz-title {
+	color: #666;
+	font-size: 14px;
+}
+.gz-small {
+	font-weight: normal;
+	font-size: 14px;
 }

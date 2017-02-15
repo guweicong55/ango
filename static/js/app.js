@@ -33,4 +33,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		templateUrl: './temp/my-follow.html',
 		controller: 'follow'
 	})
+});
+
+app.service('count', function () {
+	this.a = null;
 })

@@ -1,12 +1,3 @@
-//首页
-app.controller('main', ['$scope', '$http', function ($scope, $http) {
-		$scope.flag = null;
-		$scope.tab = function (flag) {
-			$scope.flag = flag;
-			console.log($scope.flag);
-		};
-}]);
-
 //主导航
 app.controller('header', ['$scope', '$http', function ($scope, $http) {
 	$scope.isLogin = false;
@@ -28,7 +19,7 @@ app.controller('header', ['$scope', '$http', function ($scope, $http) {
 			url: '/quite',
 		}).success(function (res) {
 			if (res === '1') {
-				console.log('退出成功');
+				//console.log('退出成功');
 				$scope.isLogin = false;	
 			};
 		})
@@ -55,7 +46,7 @@ app.controller('signup', ['$scope', '$http', function ($scope, $http) {
 			dataType: 'json'
 		}).success(function (res) {
 			if (res === '1') {
-				alert('注册成功');
+				//alert('注册成功');
 				window.location.href = 'app.html#/signin'
 			} else {
 				alert(res);
@@ -80,7 +71,7 @@ app.controller('signin', ['$scope', '$http', function ($scope, $http) {
 			dataType: 'json'
 		}).success(function (res) {
 			if (res === '1') {
-				alert('登录成功');
+				//alert('登录成功');
 				window.location.href = 'app.html'
 			} else {
 				alert(res);
@@ -178,7 +169,7 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 			dataType: 'json'
 		}).success(function (res) {
 			if (res.state === '1') {
-				alert('回复成功');
+				//alert('回复成功');
 				$scope.argumentsData.unshift({
 					author: res.user,
 					content: $scope.newArgument,
@@ -264,6 +255,7 @@ app.controller('article-list', ['$scope', '$http', function ($scope, $http) {
 
 //我关注的文章
 app.controller('follow', ['$scope', '$http', function ($scope, $http) {
+	$scope.tab(2);
 	$scope.resData = false;
 	$scope.follow = function (id, item) {
 		$http({
@@ -289,4 +281,13 @@ app.controller('follow', ['$scope', '$http', function ($scope, $http) {
 		$scope.resData = res;
 		console.log(res);
 	})
-}])
+}]);
+
+//首页
+app.controller('main', ['$scope', '$http', function ($scope, $http) {
+	$scope.flag = null;
+
+	$scope.tab = function (flag) {
+		$scope.flag = flag;
+	};
+}]);
