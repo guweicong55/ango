@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="p-top">
+		<div class="userPhoto">
+			<img src="../images/madonna.jpg">
+		</div>
+		<div class="userInfo">
+			<p class="p-username">{{ perInfo.user_name }}</p>
+			<p class="p-email">{{ perInfo.email }}</p>
+			<div class="p-dobox" ng-if="isEdit == 1">
+				<button class="blue-border-btn">编辑个人资料</button>
+			</div>
+			<div class="p-dobox" ng-if="isEdit == 0">
+				<button class="" ng-click="onfocus(perInfo.user_name)" ng-class="{1:'gray-btn', 0:'blue-back-btn'}[gray]">{{ gray === 1 ? '已关注' : '关注TA' }}</button>
+			</div>
+		</div>
+	</div>
+	<div class="p-margin">
+		<div class="profile">
+			<profile></profile>
+		</div>
+	</div>
+</div>

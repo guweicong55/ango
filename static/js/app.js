@@ -20,6 +20,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		url: '/publish',
 		templateUrl: './temp/publish.html',
 		controller: 'publish'
+	}).state('personal-center', {
+		url: '/personal-center/:name',
+		templateUrl: './temp/personal-center.html',
+		controller: 'personal-center'
 	}).state('article', {
 		url: '/article/:id',
 		templateUrl: './temp/article.html',
@@ -34,7 +38,3 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		controller: 'follow'
 	})
 });
-
-app.service('count', function () {
-	this.a = null;
-})

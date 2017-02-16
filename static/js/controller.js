@@ -278,7 +278,9 @@ app.controller('follow', ['$scope', '$http', function ($scope, $http) {
 		method: 'get',
 		url: '/getfollow'
 	}).success(function (res) {
-		$scope.resData = res;
+		if (res !== '0') {
+			$scope.resData = res;
+		}		
 		console.log(res);
 	})
 }]);
@@ -290,4 +292,52 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 	$scope.tab = function (flag) {
 		$scope.flag = flag;
 	};
+}]);
+
+//个人中心
+app.controller('personal-center', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+	$scope.perInfo = null;
+	$scope.isEdit = null;
+	$scope.gray = null;
+
+	$http({
+		method: 'get',
+		url: '/personal',
+		params: { name: $stateParams.name }
+	}).success(function (res) {
+		if (res === '0') {
+			console.log('404');
+			window.location.href = 'app.html';
+			return;
+		}
+		$scope.isEdit = res.isEdit;
+		$scope.perInfo = res.data;
+		$scope.gray = res.isFocus;
+	});
+
+	$scope.onfocus = function (user) {
+		$http({
+			method: 'post',
+			url: '/onfocus',
+			dataType: 'json',
+			data: { name: user, id: $scope.perInfo._id }
+		}).success(function (res) {
+			if (res === '0') {
+				window.location.href = 'app.html#/signin';
+				return;
+			}
+
+			if (res === '+1') {
+				$scope.gray = 1;
+			} else {
+				$scope.gray = 0;
+			}
+			console.log(res);
+		});
+	}
+}]);
+
+//个人中心动态模板
+app.controller('profile', ['$scope', '$http', function ($scope, $http) {
+
 }]);

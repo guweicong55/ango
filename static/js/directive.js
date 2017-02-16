@@ -7,3 +7,12 @@ app.directive('commonhead', function(){
 		controller: 'header',
 	}
 });
+
+app.directive('profile', function () {
+	return {
+		restrict: 'AE',
+		templateUrl: 'temp/profile.html',
+		replace: true,
+		controller: 'profile'
+	}
+})

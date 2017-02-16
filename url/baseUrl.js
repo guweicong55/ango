@@ -11,6 +11,7 @@ var router = express.Router();
 var sign = require('../controller/sign');
 var publish = require('../controller/publish');
 var fac = require('../controller/followAndCollection');
+var per = require('../controller/personal');
 
 // 注册登录退出
 router.post('/signup', sign.signUp);
@@ -38,11 +39,17 @@ router.get('/getargument', publish.getArgument);
 //点赞/踩
 router.post('/praise', publish.praise);
 
-//关注 | 取消关注
+//关注 | 取消关注 文章
 router.post('/follow', fac.follow);
 
 //获取关注列表
 router.get('/getfollow', fac.getFollowList);
+
+//个人中心页面信息
+router.get('/personal', per.personalInfo);
+
+//关注 | 取消关注 个人
+router.post('/onfocus', per.onfocusPersonal);
 
 // 导出router,由入口文件app.js执行
 module.exports = router;

@@ -2,23 +2,28 @@
 	<div class="container">
 		<a href="javascript:;" ng-click="toMain()" class="logo">ANGO</a>
 		<ul class="navbar-right" ng-hide='isLogin'>
-			<li>
+			<li class="navbar-right-li">
 				<a href="#/signup">注册</a>
 			</li>
-			<li>
+			<li class="navbar-right-li">
 				<a href="#/signin">登录</a>
 			</li>
 		</ul>
 		<ul class="navbar-right" ng-show='isLogin'>
-			<li>
-				<a href="javascript:;">{{ username }}</a>
+			<li class="navbar-right-li">
+				<a href="#/publish" class="question">提问</a>
 			</li>
-			<li>
-				<a href="#/publish">提问</a>
-			</li>
-			<li>
-				<a href="javascript:;" ng-click="quite()">退出</a>
-			</li>
+			<li class="navbar-right-li mine-box" ng-mouseenter="menu = true" ng-mouseleave="menu = false">
+				<a href="javascript:;" class="username" ng-href="#/personal-center/{{ username }}">{{ username }}</a>
+				<ul class="menu-list" ng-show="menu">
+					<li class="menu-items">
+						<a ng-href="#/personal-center/{{ username }}">我的主页</a>
+					</li>
+					<li class="menu-items">
+						<a href="javascript:;" ng-click="quite()">退出</a>
+					</li>
+				</ul>
+			</li>			
 		</ul>
 	</div>
 </div>

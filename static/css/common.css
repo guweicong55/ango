@@ -1,3 +1,6 @@
+html, body {
+	height: 100%;
+}
 .header-nav {
 	height: 45px;
 	width: 100%;
@@ -7,7 +10,8 @@
 .container {
 	width: 1000px;
 	margin: 0 auto;
-	overflow: hidden;
+	position: relative;	
+	display: table;
 }
 .logo {
 	display: block;
@@ -21,20 +25,71 @@
 .navbar-right {
 	float: right;
 }
-.navbar-right li {
+.navbar-right-li {
 	height: 45px;
 	float: left;
 	line-height: 45px;
-	margin-left: 20px;
+	margin-left: 15px;
+}
+.question {
+	display: block;
+	width: 66px;
+    height: 32px;
+    line-height: 30px;
+    margin-top: 6px;
+    border: 1px solid #045bb2;
+    border-radius: 4px;
+    background: #0e78e7;
+    background: -webkit-linear-gradient(top,#0e7bef,#0d73da);
+    background: linear-gradient(to bottom,#0e7bef,#0d73da);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), inset 0 1px 1px rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0,0,0,.12);
+    outline: 0;
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.username {
+	display: block;
+}
+.username:hover {
+	background: linear-gradient(to bottom,#055fb8,#095fb3);
+    box-shadow: inset 0 0 2px rgba(0,0,0,.12);
+}
+.mine-box {
+	width: 120px;
+	text-align: center;
+	position: relative;
 }
 .navbar-right li a {
 	color: #fff;
 	font-size: 14px; 
 }
-.navbar-right li a:hover {
-	text-decoration: underline;	
+.menu-list {
+	display: block;
+	background: #095fb3; 
+	position: absolute;
+	z-index: 99;
+	top: 45px;
+	width: 120px;
+	border-bottom-right-radius: 3px; 
+	border-bottom-left-radius: 3px; 
+	overflow: hidden;
 }
-
+.menu-items {
+	height: 40px;
+	line-height: 40px;
+}
+.menu-items a {
+	display: block;
+	border-top: 1px solid #0d5aa5;
+}
+.menu-items a:hover {
+	background: #0267cc;
+}
 .login-box {
 	width: 308px;
 	box-sizing: border-box;
@@ -237,4 +292,143 @@
 .gz-small {
 	font-weight: normal;
 	font-size: 14px;
+}
+
+.p-top {
+	position: relative;
+	height: 300px;
+	background: url('../images/cover.jpg') no-repeat center -176px, #fff;
+	background-size: cover;
+    border: 1px solid #e7eaf1;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+.userPhoto {
+	height: 160px;
+	width: 160px;
+	border-radius: 8px;
+	border: 4px solid #e4e5e6;
+	position: absolute;
+	top: 100px;
+	left: 25px;
+	overflow: hidden;
+}
+.userPhoto img {
+	width: 100%;
+	border-radius: 5px;
+}
+.userInfo {
+	width: 760px;
+	height: 130px;
+	position: absolute;
+	right: 0;
+	top: 138px;
+}
+.p-username {
+	font-size: 26px;
+	color: #333;
+}
+.p-email {
+	font-size: 16px;
+	margin-top: 10px;
+	color: #666;
+}
+.p-dobox {
+	height: 36px;
+	margin-top: 24px;
+}
+.blue-border-btn {
+	color: #0f88eb;
+    border: 1px solid #0f88eb;
+    display: inline-block;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 34px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+    background: none;
+}
+.blue-border-btn:hover {
+	background-color: rgba(13,121,209,.06);
+}
+.blue-back-btn {
+	color: #fff;
+    display: inline-block;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+    background: #0f88eb;
+}
+.blue-back-btn:hover {
+	background: #0d79d1;
+}
+.gray-btn {
+	color: #fff;
+    display: inline-block;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+    background: #abb6c5;
+}
+.profile {
+	width: 690px;
+	background: #fff;
+    border: 1px solid #e7eaf1;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    box-sizing: border-box;
+}
+.p-margin {
+	margin-top: 14px;
+	width: 100%;
+	overflow: hidden;
+}
+.pf-tab-box {
+	height: 56px;
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+}
+.pf-items {
+	height: 56px;
+	padding: 0 20px;
+	display: inline-block;
+}
+.pf-items-a {
+	position: relative;
+    display: inline-block;
+    padding: 16px 0 17px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #404040;
+    text-align: center;
+}
+.pf-isActive:after {
+	position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 3px;
+    background: #0f88eb;
+    content: "";
+}
+.pf-meta {
+	margin-left: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #a1aebf;
+}
+.pf-section {
+	box-sizing: border-box;
+	padding: 0 24px;
+	height: 100px;
 }
