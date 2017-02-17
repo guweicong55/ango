@@ -9,6 +9,7 @@ var argument = require('../model/argument').argument;
 var praise = require('../model/praise').praise;
 var follow = require('../model/follow').follow;
 var beJson = require('../common/tool').beJson;
+//var onfocus = require('../model/onfocus').onfocus;
 
 // 发布文章
 exports.publish = function (req, res) {
@@ -69,28 +70,31 @@ exports.articleList = function (req, res) {
 //获取具体文章内容
 exports.details = function (req, res) {
 	var id = url.parse(req.url, true).query.id;
-	console.log(id);
 	var reslove = {};
-
 	article.findById(id, function (err, doc) {		
-		if (err) {
-			console.log(err);
-			return;
-		}
 		reslove['article'] = doc;
 		if (req.session.data) {
-			praise.find({ article_id: id, author:req.session.data.user_name }, function (err, doc) {			
-				if (err) {
-					console.log(err);
-					return;
-				}
+			praise.find({ article_id: id, author: req.session.data.user_name }, function (err, par) {	
+				follow.count({ article_id: id }, function (err, folCount) {
+					follow.findOne({ article_id: id, create_by: req.session.data.user_name }, function (err, isFollow) {
+						if (par.length > 0) {
+							reslove.praise = par[0].is_good;
+						}
 
-				if (doc.length > 0) {
-					reslove['praise'] = doc[0].is_good;
-				}	
-				res.send(reslove);		
+						if (isFollow) {
+							reslove.isFollow = 1;
+						} else {
+							reslove.isFollow = 0;
+						}
+
+						reslove.followCount = folCount;
+
+						res.send(reslove);
+					});
+				});		
 			});	
 		} else {
+			reslove.isFollow = 0;
 			res.send(reslove);
 		}	
 	});			
@@ -264,9 +268,9 @@ exports.praise = function (req, res) {
 					});
 				}
 				res.send('1');
-			})
+			});
 		}
-	})
+	});
 }
 
 //获取某一页的评论

@@ -33,9 +33,7 @@ exports.getFollowList = function (req, res) {
 					});					
 				});
 			});
-		});
-
-	
+		});	
 }
 
 //关注 | 取消关注
@@ -60,5 +58,5 @@ exports.follow = function (req, res) {
 		new follow(query).save(function (err, doc) {
 			res.send('1');
 		})
-	})
+	});
 }

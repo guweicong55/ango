@@ -13,6 +13,6 @@ app.directive('profile', function () {
 		restrict: 'AE',
 		templateUrl: 'temp/profile.html',
 		replace: true,
-		controller: 'profile'
+		controller: 'personal-center'
 	}
 })

@@ -3,12 +3,20 @@
 		<a class="article-title" ng-href="#/article/{{ list._id }}">
 			{{ list.title }}
 		</a>
-		<a href="javascript:;" class="main-author"> {{ list.author }} </a>
-		<p class="content">
+		<div>
+			<a href="javascript:;" class="main-author" ng-href="#/personal-center/{{ list.author }}"> 
+				{{ list.author }} 
+				<!-- <div class="per-msg-box">
+
+				</div> -->
+			</a>
+			
+		</div>
+		<p class="content" style="margin-top:10px">
 			{{ list.content }}
 		</p>
 		<p class="gray-content">
-			<a href="javascript:;" class="follow" ng-click="follow(list._id, list)">	{{ list.isFollow ? '取消关注' : '关注文章' }}
+			<a href="javascript:;" class="follow" ng-click="follow(list._id, list)">	{{ list.isFollow ?  '取消关注' : '关注文章' }}
 			</a>
 			▪ {{ list.push }}人赞同 ▪ 发表于{{ list.create_at | date:'yyyy-MM-dd HH:mm' }} <!-- 踩: {{ list.step }} -->
 		</p>	

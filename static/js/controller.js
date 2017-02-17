@@ -104,7 +104,7 @@ app.controller('publish', ['$scope', '$http', function ($scope, $http) {
 app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
 	$scope.data = { id:　$stateParams.id };
 	$scope.user = '';
-	$scope.resDate = '';
+	$scope.resData = '';
 	$scope.argumentsData = '';
 
 	$scope.newArgument = '';
@@ -125,14 +125,32 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		url: '/article',
 		params: $scope.data,
 	}).success(function (res) {
-		$scope.resDate = res.article;
-
+		$scope.resData = res;
+		console.log(res);
 		if (res.praise === 1) {
 			$scope.pushClass = 'light-btn'
 		} else if (res.praise === 0) {
 			$scope.stepClass = 'light-btn'
 		}
 	});
+
+	//关注文章
+	$scope.follow = function (id, item) {
+		$http({
+			method: 'post',
+			url: '/follow',
+			data: { article_id: id },
+			dataType: 'json'
+		}).success(function (res) {
+			if (res === '1'){
+				item.isFollow = 1;
+			} else if (res === '-1') {
+				item.isFollow = 0;
+			} else if (res === '0') {
+				window.location.href = 'app.html#/signin';
+			}
+		});
+	}
 
 	// 获取分页评论
 	$scope.getArgument = function (num) {
@@ -141,7 +159,6 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 			url: '/getargument',
 			params: { id: $stateParams.id, count: num },
 		}).success(function (res) {
-			console.log(res);
 			$scope.pageCount = [];
 			$scope.argumentsData = res.data;
 			$scope.curPage = num;
@@ -193,26 +210,26 @@ app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, 
 		}).success(function (res) {
 			if (res === '1') {
 				if (gob === 1) {
-					$scope.resDate.push += 1;
+					$scope.resData.article.push += 1;
 					$scope.pushClass = 'light-btn';
 				} else {
-					$scope.resDate.step += 1;
+					$scope.resData.step += 1;
 					$scope.stepClass = 'light-btn';
 				}
 			} else if (res === '-1') {
-				$scope.resDate.push -= 1;
+				$scope.resData.article.push -= 1;
 				$scope.pushClass = '';
 			} else if (res === '-0') {
-				$scope.resDate.step -= 1;
+				$scope.resData.article.step -= 1;
 				$scope.stepClass = '';
 			} else if (res === '=1') {
-				$scope.resDate.push += 1;
-				$scope.resDate.step -= 1;
+				$scope.resData.article.push += 1;
+				$scope.resData.article.step -= 1;
 				$scope.pushClass = 'light-btn';
 				$scope.stepClass = '';
 			}  else if (res === '=0') {
-				$scope.resDate.push -= 1;
-				$scope.resDate.step += 1;
+				$scope.resData.article.push -= 1;
+				$scope.resData.article.step += 1;
 				$scope.pushClass = '';
 				$scope.stepClass = 'light-btn';
 			} else {
@@ -282,7 +299,7 @@ app.controller('follow', ['$scope', '$http', function ($scope, $http) {
 			$scope.resData = res;
 		}		
 		console.log(res);
-	})
+	});
 }]);
 
 //首页
@@ -335,9 +352,62 @@ app.controller('personal-center', ['$scope', '$http', '$stateParams', function (
 			console.log(res);
 		});
 	}
+
+	$scope.tabCount = null;
+
+	//我的提问
+	$scope.myQuestion = function (count) {	
+		$http({
+			method: 'get',
+			url: '/personal-article',
+			params: { user: $stateParams.name }
+		}).success(function (res) {
+			if (res !== '0') {
+				$scope.resData = res;
+			}
+			$scope.tabCount = count;		
+			console.log(res);
+		});
+	}
+	$scope.myQuestion(1);
+
+
+	//我关注的人
+	$scope.fosData = null;
+	$scope.myFocus = function (count) {
+
+		$http({
+			method: 'get',
+			url: '/myfocus',
+			params: { name: $stateParams.name }
+		}).success(function (res) {
+			$scope.tabCount = count;
+			if (res != '0') {
+				$scope.fosData = res;
+			}					
+			console.log(res);
+		});
+		$scope.tabCount = count;
+	}
+
+	//我关注的文章
+	$scope.folArticleData = null;
+	$scope.myFollow = function (count) {
+
+		$http({
+			method: 'get',
+			url: '/myfollowarticle',
+			params: { name: $stateParams.name }
+		}).success(function (res) {
+			$scope.tabCount = count;
+			if (res != '0') {
+				$scope.folArticleData = res;
+			}					
+			console.log(res);
+		});
+
+		$scope.tabCount = count;
+	}
+	
 }]);
 
-//个人中心动态模板
-app.controller('profile', ['$scope', '$http', function ($scope, $http) {
-
-}]);

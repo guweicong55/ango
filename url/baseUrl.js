@@ -51,5 +51,14 @@ router.get('/personal', per.personalInfo);
 //关注 | 取消关注 个人
 router.post('/onfocus', per.onfocusPersonal);
 
+//个人中心 | 提问
+router.get('/personal-article', per.personalArticle);
+
+//个人中心 | 关注的人
+router.get('/myfocus', per.myFocus);
+
+//个人中心 | 关注的文章
+router.get('/myfollowarticle', per.myFollowArticle);
+
 // 导出router,由入口文件app.js执行
 module.exports = router;

@@ -1,15 +1,73 @@
-<div class="pf-tab-box">
-	<ul>
-		<li class="pf-items">
-			<a class="pf-items-a pf-isActive" href="javascript:;">
-				提问
-				<span class="pf-meta">
-					63
-				</span>
+<div class="profile">
+	<div class="pf-tab-box">
+		<ul>
+			<li class="pf-items">
+				<a class="pf-items-a" ng-class="{1:'pf-isActive'}[tabCount]" href="javascript:;" ng-click="myQuestion(1)">
+					提问
+					<!-- <span class="pf-meta">
+						{{ resData.length }}
+					</span> -->
+				</a>
+			</li>
+			<li class="pf-items">
+				<a class="pf-items-a" ng-class="{2:'pf-isActive'}[tabCount]" href="javascript:;" ng-click="myFocus(2)">
+					关注的人
+					<!-- <span class="pf-meta">
+						12
+					</span> -->
+				</a>
+			</li>
+			<li class="pf-items">
+				<a class="pf-items-a" ng-class="{3:'pf-isActive'}[tabCount]" href="javascript:;" ng-click="myFollow(3)">
+					关注的文章
+					<!-- <span class="pf-meta">
+						12
+					</span> -->
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="pf-section" ng-show="tabCount == 1">
+		<p class="pf-section-title">
+			我的提问
+		</p>
+		<ul>
+			<li class="list-section" ng-repeat="res in resData">
+				<a class="pf-article-title" ng-href="#/article/{{ res.id }}">
+					{{ res.title }}
+				</a>
+				<p class="gray-content">
+					{{ res.argCount }} 个回答 • {{ res.folCount }} 人关注
+				</p>	
+			</li>
+		</ul>
+	</div>
+	<div class="pf-section" ng-show="tabCount == 2">
+		<p class="pf-section-title" ng-hide="fosData">
+			还未关注任何人
+		</p>
+		<ul>
+			<li class="list-section" ng-repeat="fo in fosData">
+				<a class="pf-article-title" ng-href="#/personal-center/{{ fo.name }}">
+					{{ fo.name }}
+				</a>
+				<p class="gray-content">
+					{{ fo.argument }} 个回答• {{ fo.article }} 文章 • {{ fo.onfocus }} 人关注
+				</p>
+			</li>
+		</ul>
+	</div>
+	<div class="pf-section" ng-show="tabCount == 3">
+		<p class="pf-section-title" ng-hide="folArticleData">
+			还未关注任何文章
+		</p>
+		<li class="list-section" ng-repeat="fad in folArticleData">
+			<a class="article-title" ng-href="#/article/{{ fad.id }}">
+				{{ fad.title }}
 			</a>
+			<p class="gray-content">
+				{{ fad.argCount }} 个回答 • {{ fad.folCount }} 人关注
+			</p>	
 		</li>
-	</ul>
-	<div class="pf-section">
-		asdasdasd
 	</div>
 </div>

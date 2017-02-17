@@ -1,15 +1,48 @@
+<div class="ar-top">
+	<div class="container">
+		<div class="ar-left">
+			<h2 class="ar-title">
+			{{ resData.article.title }}
+			</h2>
+			<p class="ar-do-box">
+				发布于 {{ resData.article.create_at | date:'yyyy-MM-dd' }} 发布者 {{ resData.article.author }} 
+				<!-- <button class='small-btn' ng-click="praise(0)" ng-class="stepClass">踩:{{ resDate.step }}</button> -->
+			</p>
+			<div class="p-dobox">
+				<button class="" ng-class="{1:'gray-btn', 0: 'blue-back-btn'}[resData.isFollow]" ng-click="follow(resData.article._id, resData)">{{ resData.isFollow ? '正在关注' : '关注文章' }}</button>
+				<button class='small-btn' ng-click="praise(1)" ng-class="pushClass">{{ resData.article.push }} 人觉得很赞</button>
+			</div>
+		</div>
+		<div class="ar-right">
+			<div class="ar-msg-box">
+				<div class="ar-num-board" style="border-left: 1px solid #f0f2f7">
+					<div class="ar-number-item">
+						关注者
+					</div>
+					<div class="ar-number-item-val">
+						{{ resData.followCount }}
+					</div>
+				</div>
+				<div class="ar-num-board">
+					<div class="ar-number-item">
+						被浏览
+					</div>
+					<div class="ar-number-item-val">
+						151001
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ar-top">
+	<div class="container">
+		<p class="content">
+			{{ resData.article.content }}
+		</p>
+	</div>
+</div>
 <div class="container">
-	<h2 style="margin-top: 20px">
-		{{ resDate.title }}
-	</h2>
-	<p style="margin-top: 15px">
-		{{ resDate.create_at | date:'yyyy-MM-dd HH:mm' }} 发布者: {{ resDate.author }} 
-		<button class='small-btn' ng-click="praise(1)" ng-class="pushClass">赞:{{ resDate.push }}</button>
-		<button class='small-btn' ng-click="praise(0)" ng-class="stepClass">踩:{{ resDate.step }}</button>
-	</p>
-	<p class="content">
-		{{ resDate.content }}
-	</p>
 	<div class="arguments-box">
 		<h2>
 			评论
@@ -21,7 +54,7 @@
 					<span style="color: #aaa; margin-left: 15px">{{ argument.create_at | date: 'yyyy-MM-dd HH:mm' }}</span>
 				</p>
 				<p class="content">
-					{{ argument.content }}
+					{{ argument.content }} 
 				</p>
 			</li>
 		</ul>
