@@ -1,7 +1,51 @@
 //主导航
-app.controller('header', ['$scope', '$http', function ($scope, $http) {
+app.controller('header', ['$scope', '$http', '$timeout', '$stateParams', function ($scope, $http, $timeout, $stateParams) {
 	$scope.isLogin = false;
 	$scope.username = null;
+	$scope.searchInfo = '';
+	$scope.searchShow = false;
+	$scope.searchData = '';
+
+	$scope.$watch('searchInfo', function (newValue, oldValue) {
+		
+		if (newValue === '') {
+			$scope.searchShow = false;
+			return;
+		};
+
+		$scope.searchShow = true;
+		$scope.searchData = '';
+
+		$timeout(function() {
+			//进行搜索
+			$http({
+				method: 'get',
+				url: '/search',
+				params: { val: $scope.searchInfo }
+			}).success(function (res) {
+				console.log(res);
+				if (res != '0') {
+					$scope.searchData = res;
+				};
+			})
+		}, 500);
+
+	});
+
+	$scope.searchOnfocus = function () {
+		if ($scope.searchInfo === '') return;
+
+		$scope.searchShow = true;	
+	};
+
+	$scope.searchOnblur = function () {
+		$scope.searchShow = false;
+	}
+
+	$scope.clearVal = function () {
+		$scope.searchInfo = ''; 
+	}
+
 	$http({
 		method: 'get',
 		url: '/getsession',
@@ -100,157 +144,33 @@ app.controller('publish', ['$scope', '$http', function ($scope, $http) {
 	}
 }]);
 
-//文章详情
-app.controller('article', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
-	$scope.data = { id:　$stateParams.id };
-	$scope.user = '';
-	$scope.resData = '';
-	$scope.argumentsData = '';
-
-	$scope.newArgument = '';
-	
-	$scope.push = 0;
-	$scope.step = 0;
-	$scope.pushClass = '';
-	$scope.stepClass = '';
-
-	//分页页数
-	$scope.pageCount = [];
-	$scope.curPage = 1;
-
-
-	// 获取文章
-	$http({
-		method: 'get',
-		url: '/article',
-		params: $scope.data,
-	}).success(function (res) {
-		$scope.resData = res;
-		console.log(res);
-		if (res.praise === 1) {
-			$scope.pushClass = 'light-btn'
-		} else if (res.praise === 0) {
-			$scope.stepClass = 'light-btn'
-		}
-	});
-
-	//关注文章
-	$scope.follow = function (id, item) {
-		$http({
-			method: 'post',
-			url: '/follow',
-			data: { article_id: id },
-			dataType: 'json'
-		}).success(function (res) {
-			if (res === '1'){
-				item.isFollow = 1;
-			} else if (res === '-1') {
-				item.isFollow = 0;
-			} else if (res === '0') {
-				window.location.href = 'app.html#/signin';
-			}
-		});
-	}
-
-	// 获取分页评论
-	$scope.getArgument = function (num) {
-		$http({
-			method: 'get',
-			url: '/getargument',
-			params: { id: $stateParams.id, count: num },
-		}).success(function (res) {
-			$scope.pageCount = [];
-			$scope.argumentsData = res.data;
-			$scope.curPage = num;
-			if (res.count > 10) {
-				for (var i = 1; i <= Math.ceil(res.count/10); i++) {
-					if (i === $scope.curPage) {
-						$scope.pageCount.push({ num: i, style: 'active' });
-					} else {
-						$scope.pageCount.push({ num: i, style: '' });
-					}
-					
-				}
-			}
-		})
-	}
-	//初始化页面获取第一页评论数据
-	$scope.getArgument(1);
-
-	// 提交评论
-	$scope.update = function () {
-		$http({
-			method: 'post',
-			url: '/argument',
-			data: { content: $scope.newArgument, id: $stateParams.id },
-			dataType: 'json'
-		}).success(function (res) {
-			if (res.state === '1') {
-				//alert('回复成功');
-				$scope.argumentsData.unshift({
-					author: res.user,
-					content: $scope.newArgument,
-					create_at: new Date().getTime()
-				})
-			} else {
-				alert(res);
-			}
-			$scope.newArgument = '';
-		});
-	}
-
-	//点赞
-	$scope.praise = function (gob) {
-
-		$http({
-			method: 'post',
-			url: '/praise',
-			data: { id: $stateParams.id, is_good: gob },
-			dataType: 'json'
-		}).success(function (res) {
-			if (res === '1') {
-				if (gob === 1) {
-					$scope.resData.article.push += 1;
-					$scope.pushClass = 'light-btn';
-				} else {
-					$scope.resData.step += 1;
-					$scope.stepClass = 'light-btn';
-				}
-			} else if (res === '-1') {
-				$scope.resData.article.push -= 1;
-				$scope.pushClass = '';
-			} else if (res === '-0') {
-				$scope.resData.article.step -= 1;
-				$scope.stepClass = '';
-			} else if (res === '=1') {
-				$scope.resData.article.push += 1;
-				$scope.resData.article.step -= 1;
-				$scope.pushClass = 'light-btn';
-				$scope.stepClass = '';
-			}  else if (res === '=0') {
-				$scope.resData.article.push -= 1;
-				$scope.resData.article.step += 1;
-				$scope.pushClass = '';
-				$scope.stepClass = 'light-btn';
-			} else {
-				window.location.href = 'app.html#/signin';
-			}
-		})
-	}
-
-}]);
-
 //文章主页
 app.controller('article-list', ['$scope', '$http', function ($scope, $http) {
-	$scope.lists = null;
-
-	$http({
-		method: 'get',
-		url: '/articlelist'
-	}).success(function (res) {
-		$scope.lists = res;
-		console.log(res);
-	});
+	$scope.lists = [];
+	$scope.page = 1;
+	$scope.noMore = false;
+	$scope.getArticleList = function () {
+		if ($scope.page) {
+			$http({
+				method: 'get',
+				url: '/articlelist',
+				params: { page: $scope.page }
+			}).success(function (res) {
+				if (res.length > 0) {
+					res.forEach(function (val, index) {
+						$scope.lists.unshift(val);
+					});
+					$scope.page ++;
+				} else {
+					$scope.noMore = true;
+					$scope.page = false;
+				}
+				console.log(res);			
+			});
+		}
+		
+	}
+	$scope.getArticleList();
 
 	$scope.follow = function (id, item) {
 		$http({
@@ -312,7 +232,8 @@ app.controller('main', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //个人中心
-app.controller('personal-center', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('personal-center', ['$scope', '$http', '$stateParams', '$ocLazyLoad', function ($scope, $http, $stateParams, $ocLazyLoad) {
+	$ocLazyLoad.load('../css/common.css');
 	$scope.perInfo = null;
 	$scope.isEdit = null;
 	$scope.gray = null;

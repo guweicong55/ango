@@ -1,0 +1,198 @@
+html, body {
+	height: 100%;
+}
+.header-nav {
+	height: 45px;
+	width: 100%;
+	background: linear-gradient(to bottom,#086ed5,#055db5);
+	border-bottom: 1px solid #044e97;
+}
+.logo {
+	display: block;
+	height: 45px;
+	width: 70px;
+	float: left;
+	font-size: 20px;
+	color: #fff;
+	line-height: 45px;
+	background: url('../images/logo.png') no-repeat center center;
+	background-size: 68%;
+}
+.navbar-right {
+	float: right;
+}
+.navbar-right-li {
+	height: 45px;
+	float: left;
+	line-height: 45px;
+	margin-left: 15px;
+}
+.question {
+	display: block;
+	width: 66px;
+    height: 32px;
+    line-height: 30px;
+    margin-top: 6px;
+    border: 1px solid #045bb2;
+    border-radius: 4px;
+    background: #0e78e7;
+    background: -webkit-linear-gradient(top,#0e7bef,#0d73da);
+    background: linear-gradient(to bottom,#0e7bef,#0d73da);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), inset 0 1px 1px rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0,0,0,.12);
+    outline: 0;
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.username {
+	display: block;
+}
+.username:hover {
+	background: linear-gradient(to bottom,#055fb8,#095fb3);
+    box-shadow: inset 0 0 2px rgba(0,0,0,.12);
+}
+.mine-box {
+	width: 120px;
+	text-align: center;
+	position: relative;
+}
+.navbar-right li a {
+	color: #fff;
+	font-size: 14px; 
+}
+.menu-list {
+	display: block;
+	background: #095fb3; 
+	position: absolute;
+	z-index: 99;
+	top: 45px;
+	width: 120px;
+	border-bottom-right-radius: 3px; 
+	border-bottom-left-radius: 3px; 
+	overflow: hidden;
+}
+.menu-items {
+	height: 40px;
+	line-height: 40px;
+}
+.menu-items a {
+	display: block;
+	border-top: 1px solid #0d5aa5;
+}
+.menu-items a:hover {
+	background: #0267cc;
+}
+.search-box {
+	float: left;
+	margin: 5px 15px 0;
+	position: relative;
+    width: 280px;
+    height: 34px;
+    color: #49525c;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: #e1eaf2;
+    border: 1px solid #045bb2;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.2), 0 1px 0 rgba(255,255,255,.1);
+    outline: 0;
+    box-sizing: border-box;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.search-input {
+	padding: 7px 50px 7px 10px;
+	 box-sizing: border-box;
+	 background: none;
+	 height: 100%;
+	 color: #404040;
+	 font-size: 14px;
+}
+.search-btn {
+	position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 40px;
+    height: 34px;
+    background: #0e78e7;
+    background: -webkit-linear-gradient(top,#0e7bef,#0d73da);
+    background: linear-gradient(to bottom,#0e7bef,#0d73da);
+    border: 1px solid #045bb2;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05), inset 0 1px 1px rgba(255,255,255,.15);
+    box-sizing: border-box;
+    outline: 0;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 12px;
+    color: #fff;
+}
+.search-icon {
+	display: block;
+	height: 100%;
+	width: 100%;
+	background: url('../images/image_large.svg') no-repeat center center;
+}
+.search-resolve {
+	position: absolute;
+    top: 35px;
+    left: 1px;
+    z-index: 10;
+    width: 600px;
+    background: #fff;
+    border: solid 1px #999;
+    border: 0 none rgba(0,0,0,0);
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.5);
+    overflow: hidden;	
+}
+.search-resolve-section {
+	overflow: hidden;
+}
+.search-resolve-title {
+	height: 30px;
+	width: 100%;
+	background: #f4f5f6;
+	font-size: 13px;
+	line-height: 30px;
+	color: #404040;
+	box-sizing: border-box;
+	padding: 0 10px;
+}
+.search-user-section {	
+	
+}
+.search-user-href {
+	display: block;
+	box-sizing: border-box;
+	padding: 0 10px;
+	color: #404040;
+	padding: 10px;
+}
+.search-user-href:hover {
+	background: rgb(214, 233, 248);
+}
+.search-user-title {
+	font-size: 14px;
+	font-weight: bold;
+}
+.search-user-email {
+	font-size: 12px;
+	color: #666;
+	line-height: 18px;
+}
+.search-user-title {
+	font-size: 14px;
+}
+.no-data {
+	font-size: 14px;
+	color: #696969;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+}

@@ -1,6 +1,38 @@
 <div class="header-nav">
 	<div class="container">
-		<a href="javascript:;" ng-click="toMain()" class="logo">ANGO</a>
+		<a href="javascript:;" ng-click="toMain()" class="logo"></a>
+		<div class="search-box">
+			<input type="text" class="search-input" ng-model="searchInfo" placeholder="搜索你感兴趣的内容..." ng-focus="searchOnfocus()">
+			<button class="search-btn">
+				<span class="search-icon"></span>
+			</button>
+			<div class="search-resolve" ng-show="searchShow">
+				<div class="search-resolve-section" ng-show="searchData.user.length == 0 && searchData.article.length == 0">
+					<p class="no-data">没有找到相关结果</p>
+				</div>
+				<div class="search-resolve-section" ng-show="searchData.user.length > 0">
+					<div class="search-resolve-title">用户</div>
+					<ul>
+						<li class="search-user-section" ng-repeat="user in searchData.user">
+							<a href="javascript:;" class="search-user-href" ng-href="#/personal-center/{{ user.user_name }}" ng-click="clearVal()">
+								<p class="search-user-title">{{ user.user_name }}</p>
+								<p class="search-user-email">{{ user.email }}</p>
+							</a>							
+						</li>
+					</ul>
+				</div>
+				<div class="search-resolve-section" ng-show="searchData.article.length > 0">
+					<div class="search-resolve-title">内容</div>
+					<ul>
+						<li class="search-user-section" ng-repeat="article in searchData.article">
+							<a href="javascript:;" class="search-user-href" ng-click="clearVal()" ng-href="#/article/{{ article._id }}">
+								<p class="search-article-title">{{ article.title }}</p>
+							</a>							
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<ul class="navbar-right" ng-hide='isLogin'>
 			<li class="navbar-right-li">
 				<a href="#/signup">注册</a>

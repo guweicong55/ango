@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router']);
+var app = angular.module('app', ['ui.router', 'oc.lazyLoad']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
@@ -15,7 +15,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	}).state('signin', {
 		url: '/signin',
 		templateUrl: './temp/signin.html',
-		controller: 'signin'
+		controller: 'signin',
+		/*resolve: {
+			myCss: ['$ocLazyLoad', function ($ocLazyLoad) {
+				return $ocLazyLoad.load('../css/common.css');
+			}]
+		}*/
 	}).state('publish', {
 		url: '/publish',
 		templateUrl: './temp/publish.html',
@@ -27,7 +32,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	}).state('article', {
 		url: '/article/:id',
 		templateUrl: './temp/article.html',
-		controller: 'article'
+		controller: 'article',
+		resolve: {
+			editer: ['$ocLazyLoad', function ($ocLazyLoad) {
+				return $ocLazyLoad.load([
+					'../css/font-awesome.css',
+					'../css/simditor.css',
+					'./js/simditor-all.js',
+					//'./js/articleCtrl.js'
+				])
+			}]
+		}
 	}).state('main.main-article-list', {
 		url: 'main-article-list',
 		templateUrl: './temp/main-article-list.html',
@@ -38,3 +53,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		controller: 'follow'
 	})
 });
+
+app.filter('toHtml', ['$sce',function($sce) {  
+    return function(val) {  
+        return $sce.trustAsHtml(val);   
+    };  
+}])

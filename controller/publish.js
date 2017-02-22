@@ -42,27 +42,45 @@ exports.publish = function (req, res) {
 
 //获取文章列表
 exports.articleList = function (req, res) {
-	article.find({}).lean().exec(function (err, doc) {
-    	var resData = beJson(doc);
-    	var a = 0;
+	var page = url.parse(req.url, true).query.page;
+	article.find({})
+	.sort({ creat_at: 1 })
+	.limit(page*10)
+	.skip((page-1)*10)
+	.exec(function (err, articleInfo) {
+		
     	if (req.session.data) {
-    		for (var s = 0; s < resData.length; s++) {
-    			//要做的res.send()操作必须在follow.findOne的callback中，否则会出现未知的奇葩错误
-    			//不可以写在for或者if中
-    			follow.findOne({create_by: req.session.data.user_name, article_id: resData[s]._id}, function (err, doc) {    				
-    				if (doc) {
-    					resData[a].isFollow = 1;
-    				} 
-
-    				if (a == resData.length-1) {
-	    				res.send(resData);
-	    			}
-
-	    			a++;	
-    			});				
-    		}
+    		var ep = new eventproxy();
+    		ep.after('getArticleList', articleInfo.length, function (data) {
+    			res.send(data);
+    		});
+    		articleInfo.forEach(function (val, index) {
+    			follow.findOne({create_by: req.session.data.user_name, article_id: val._id}, function (err, followInfo) {  
+					 console.log(index); 				
+					if (followInfo) {
+						ep.emit('getArticleList', {
+							_id: val._id,
+							title: val.title,
+							content: val.content,
+							push: val.push,
+							create_at: val.create_at,
+							author: val.author,
+							isFollow: 1
+						});
+					} else {
+						ep.emit('getArticleList', {
+							_id: val._id,
+						 	title: val.title,
+							content: val.content,
+							push: val.push,
+							create_at: val.create_at,
+							author: val.author,
+						});
+					}	
+				});	
+    		})										
     	} else {
-    		res.send(resData);
+    		res.send(articleInfo);
     	}
 	});		
 }
@@ -75,7 +93,7 @@ exports.details = function (req, res) {
 		reslove['article'] = doc;
 		if (req.session.data) {
 			praise.find({ article_id: id, author: req.session.data.user_name }, function (err, par) {	
-				follow.count({ article_id: id }, function (err, folCount) {
+	 			follow.count({ article_id: id }, function (err, folCount) {
 					follow.findOne({ article_id: id, create_by: req.session.data.user_name }, function (err, isFollow) {
 						if (par.length > 0) {
 							reslove.praise = par[0].is_good;

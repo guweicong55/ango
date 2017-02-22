@@ -8,6 +8,9 @@
 				发布于 {{ resData.article.create_at | date:'yyyy-MM-dd' }} 发布者 {{ resData.article.author }} 
 				<!-- <button class='small-btn' ng-click="praise(0)" ng-class="stepClass">踩:{{ resDate.step }}</button> -->
 			</p>
+			<p class="content">
+				{{ resData.article.content }}
+			</p>
 			<div class="p-dobox">
 				<button class="" ng-class="{1:'gray-btn', 0: 'blue-back-btn'}[resData.isFollow]" ng-click="follow(resData.article._id, resData)">{{ resData.isFollow ? '正在关注' : '关注文章' }}</button>
 				<button class='small-btn' ng-click="praise(1)" ng-class="pushClass">{{ resData.article.push }} 人觉得很赞</button>
@@ -35,37 +38,91 @@
 		</div>
 	</div>
 </div>
-<div class="ar-top">
+<!-- <div class="ar-top">
 	<div class="container">
 		<p class="content">
 			{{ resData.article.content }}
 		</p>
 	</div>
-</div>
+</div> -->
 <div class="container">
-	<div class="arguments-box">
-		<h2>
-			评论
-		</h2>
-		<ul>
-			<li class="list-section" ng-repeat="argument in argumentsData">
-				<p>
-					<span class="author">{{ argument.author }}</span>
-					<span style="color: #aaa; margin-left: 15px">{{ argument.create_at | date: 'yyyy-MM-dd HH:mm' }}</span>
-				</p>
-				<p class="content">
-					{{ argument.content }} 
-				</p>
-			</li>
-		</ul>
-		<div class="page-box">
+	<div class="container-left">
+		<div class="arguments-box">
+			<p class="argument-title">
+				{{ argumentsCount }} 条评论
+			</p>
 			<ul>
-				<li class="page-sections" ng-class="i.style" ng-click="getArgument(i.num)" ng-repeat="i in pageCount">
-					{{ i.num }}
+				<li class="list-section" ng-repeat="argument in argumentsData">
+					<a class="author" ng-href="#/personal-center/{{ argument.author }}">{{ argument.author }}
+					</a>
+					<p class="argument-content" ng-bind-html="argument.content | toHtml">
+						
+					</p>
+					<p class="argument-time">{{ argument.create_at | date: 'yyyy-MM-dd HH:mm' }}
+					</p>
 				</li>
 			</ul>
+			<div class="page-box">
+				<ul>
+					<li class="page-sections" ng-class="i.style" ng-click="getArgument(i.num)" ng-repeat="i in pageCount">
+						{{ i.num }}
+					</li>
+				</ul>
+			</div>
 		</div>
-		<textarea ng-model="newArgument" class="def-teaxt" placeholder="我的回复"></textarea>
-		<button  class="def-btn" ng-click="update()">update</button>
+		<div class="arguments-box">
+			<!-- <trix-editor angular-trix ng-model="newArgument"></trix-editor> -->
+			<textarea ng-model="newArgument" id="editor" class="def-teaxt" placeholder="我的回复..."></textarea>
+			<button  class="def-btn" ng-click="update()">update</button>
+		</div>
+	</div>
+	<div class="container-right">
+		<div class="about-author">
+			<p class="argument-title">
+				关于作者
+			</p>
+			<div class="card-section">
+				<a class="account" href="javascript: void 0;">
+					艾莱克斯塔萨
+				</a>
+				<p class="argument-time">
+					44356564@qq.com
+				</p>
+			</div>
+			<div class="about-author-msg">
+				<div class="ar-num-board" style="width: 33%">
+					<div class="ar-number-item">
+						回答
+					</div>
+					<div class="ar-number-item-val">
+						1123
+					</div>
+				</div>
+				<div class="ar-num-board" style="width: 33%">
+					<div class="ar-number-item">
+						文章
+					</div>
+					<div class="ar-number-item-val">
+						101
+					</div>
+				</div>
+				<div class="ar-num-board" style="width: 33%">
+					<div class="ar-number-item">
+						关注者
+					</div>
+					<div class="ar-number-item-val">
+						151001
+					</div>
+				</div>
+			</div>
+			<div class="about-author-msg" style="padding-bottom: 0;">
+				<button class="blue-back-btn" style="width: 125px;">
+					关注
+				</button>
+				<button class="small-btn" style="width: 125px; float: right">
+					私信
+				</button>
+			</div>
+		</div>
 	</div>
 </div>

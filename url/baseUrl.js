@@ -12,6 +12,7 @@ var sign = require('../controller/sign');
 var publish = require('../controller/publish');
 var fac = require('../controller/followAndCollection');
 var per = require('../controller/personal');
+var search = require('../controller/search');
 
 // 注册登录退出
 router.post('/signup', sign.signUp);
@@ -59,6 +60,9 @@ router.get('/myfocus', per.myFocus);
 
 //个人中心 | 关注的文章
 router.get('/myfollowarticle', per.myFollowArticle);
+
+//搜索
+router.get('/search', search);
 
 // 导出router,由入口文件app.js执行
 module.exports = router;

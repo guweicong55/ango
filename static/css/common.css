@@ -1,94 +1,20 @@
-html, body {
-	height: 100%;
-}
-.header-nav {
-	height: 45px;
-	width: 100%;
-	background: linear-gradient(to bottom,#086ed5,#055db5);
-	border-bottom: 1px solid #044e97;
-}
 .container {
 	width: 1000px;
 	margin: 0 auto;
 	position: relative;	
 	display: table;
 }
-.logo {
-	display: block;
-	height: 45px;
+.container-left {
+	width: 690px;
+	position: relative;	
+	display: table;
 	float: left;
-	font-size: 24px;
-	color: #fff;
-	line-height: 45px;
-	font-weight: bold;
 }
-.navbar-right {
+.container-right {
+	width: 296px;
+	position: relative;	
+	display: table;
 	float: right;
-}
-.navbar-right-li {
-	height: 45px;
-	float: left;
-	line-height: 45px;
-	margin-left: 15px;
-}
-.question {
-	display: block;
-	width: 66px;
-    height: 32px;
-    line-height: 30px;
-    margin-top: 6px;
-    border: 1px solid #045bb2;
-    border-radius: 4px;
-    background: #0e78e7;
-    background: -webkit-linear-gradient(top,#0e7bef,#0d73da);
-    background: linear-gradient(to bottom,#0e7bef,#0d73da);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05), inset 0 1px 1px rgba(255,255,255,.15);
-    color: #fff;
-    font-size: 14px;
-    text-align: center;
-    text-shadow: 0 1px 1px rgba(0,0,0,.12);
-    outline: 0;
-    cursor: pointer;
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-}
-.username {
-	display: block;
-}
-.username:hover {
-	background: linear-gradient(to bottom,#055fb8,#095fb3);
-    box-shadow: inset 0 0 2px rgba(0,0,0,.12);
-}
-.mine-box {
-	width: 120px;
-	text-align: center;
-	position: relative;
-}
-.navbar-right li a {
-	color: #fff;
-	font-size: 14px; 
-}
-.menu-list {
-	display: block;
-	background: #095fb3; 
-	position: absolute;
-	z-index: 99;
-	top: 45px;
-	width: 120px;
-	border-bottom-right-radius: 3px; 
-	border-bottom-left-radius: 3px; 
-	overflow: hidden;
-}
-.menu-items {
-	height: 40px;
-	line-height: 40px;
-}
-.menu-items a {
-	display: block;
-	border-top: 1px solid #0d5aa5;
-}
-.menu-items a:hover {
-	background: #0267cc;
 }
 .login-box {
 	width: 308px;
@@ -137,11 +63,13 @@ html, body {
 .def-teaxt {
 	width: 100%;
 	margin: 15px 0;
-	border: 1px solid #ddd;
-	box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+	border: none;
 	border-radius: 3px;
 	height: 150px;
 	padding: 10px;
+	font-size: 15px;
+	color: #404040;
+	resize: none;
 }
 .main-left {
 	width: 632px;
@@ -187,11 +115,29 @@ html, body {
 	width: 100%;
 	overflow: hidden;
 	border-bottom: 1px dotted #ddd;
-	padding: 15px 0;
+	padding: 25px 0;
 	list-style-type: none;
 }
 .list-section:last-child {
 	border-bottom: none;
+}
+.liner-gray-btn {
+	color: #666!important;
+    text-shadow: 0 1px 0 #fff;
+    background: #f1f1f2;
+    background: -webkit-linear-gradient(top,#f8f8f9,#e6e6e8);
+    background: linear-gradient(to bottom,#f8f8f9,#e6e6e8);
+    border: 1px solid #bbb;
+    box-shadow: 0 1px 0 #fff inset, 0 1px 0 rgba(0,0,0,.1);
+    display: block;
+    height: 32px;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.liner-gray-btn:hover {
+	background: -webkit-linear-gradient(top,#f8f8f9,#e0e0e2);
+    background: linear-gradient(to bottom,#f8f8f9,#e0e0e2);
 }
 .ar-title {
 	font-size: 24px;
@@ -202,11 +148,13 @@ html, body {
 	width: 100%;
 	border-bottom: 1px solid #e7eaf1;
 	padding: 20px 0; 
+	background: #fff;
 }
 .ar-do-box {
 	color: #8590a6;
 	font-size: 14px;
 	margin-top: 8px;
+	margin-bottom: 15px;
 }
 .ar-left {
 	width: 680px;
@@ -286,17 +234,59 @@ html, body {
 }
 .arguments-box {
 	width: 100%;
+	float: left;
 	margin-top: 20px;
-	background: #f6f6f6;
+	background: #fff;
 	box-sizing: border-box;
 	padding: 20px;
-	border: 1px solid #ddd;
+	border: 1px solid #e7eaf1;
 	border-radius: 5px;	
+	box-shadow: 0 1px 3px rgba(0,37,55,.05);
 }
-
+.argument-title {
+	height: 33px;
+	color: #404040;
+	display: block;
+	border-bottom: 1px solid #f0f2f7;
+	font-size: 16px;
+}
+.argument-content {
+	font-size: 15px;
+	color: #404040;
+	line-height: 1.5;
+	margin-top: 8px;
+}
+.argument-time {
+	font-size: 14px;
+    color: #8590a6;
+    margin-top: 10px;
+}
+.about-author {
+	box-sizing: border-box;
+	border: 1px solid #e7eaf1;
+	box-shadow: 0 1px 3px rgba(0,37,55,.05);
+	width: 100%;
+	border-radius: 5px;
+	background: #fff;
+	margin-top: 20px;
+	padding: 16px;
+}
+.card-section {
+	border-bottom: 1px solid #f0f2f7;
+	padding: 15px 0;
+}
+.account {
+	font-size: 16px;
+	color: #404040;
+	font-weight: 800;
+}
+.about-author-msg {
+	overflow: hidden;
+	padding: 15px 0;
+}
 .author {
 	font-weight: bold;
-	font-size: 13px;
+	font-size: 15px;
 	color: #666;
 }
 .small-btn {
